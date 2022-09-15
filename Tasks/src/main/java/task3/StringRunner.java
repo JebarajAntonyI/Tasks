@@ -1,16 +1,23 @@
 package task3;
+
 import java.util.Scanner;
-public class StringRunner {
+
+import myException.UserDefinedException;
+
+public class StringRunner 
+{
     static Scanner scan = new Scanner(System.in);
 
-    public String getStringInput() {
+    public String getStringInput() 
+    {
         String inputString;
         System.out.println("Enter the String ");
         inputString = scan.next();
         return inputString;
     }
 
-    public String getStringLineInput() {
+    public String getStringLineInput() 
+    {
         String inputString;
         System.out.println("Enter the String in line");
         scan.nextLine();
@@ -18,13 +25,17 @@ public class StringRunner {
         return inputString;
     }
 
-    public int getIntegerInput(int number) {
+    public int getIntegerInput(int number) 
+    {
         boolean value = true;
         while (value) {
-            if (scan.hasNextInt()) {
+            if (scan.hasNextInt()) 
+            {
                 number = scan.nextInt();
                 value = false;
-            } else {
+            } 
+            else 
+            {
                 scan.next();
                 System.out.println("Enter the value in Integer: ");
             }
@@ -33,7 +44,8 @@ public class StringRunner {
     }
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws UserDefinedException 
+    {
         StringRunner get = new StringRunner();
         StringTask run = new StringTask();
         System.out.print("Enter the Exercise number in which you want to perform actions: ");
@@ -44,270 +56,364 @@ public class StringRunner {
         int length = 0, occurance = 0, position = 0, index = 0;
         char[] chArray = {};
         boolean value = false;
-        while (experiment != 0) {
-            switch (experiment) {
-                case 1: {
-                    if (args.length != 0) {
-                        try {
+        while (experiment != 0) 
+        {
+            switch (experiment) 
+            {
+                case 1: 
+                {
+                    if (args.length != 0) 
+                    {
+                        try 
+                        {
                             length = run.getLength(args[0]);
                             System.out.println("Length of the String is " + length);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
+                        } 
+                        catch (Exception e) 
+                        {
+                            System.out.println(e);
                         }
-                    } else {
+                    } 
+                    else 
+                    {
                         System.out.println("No String available");
                     }
                     break;
                 }
-                case 2: {
+                case 2: 
+                {
                     inputString = get.getStringInput();
-                    try {
+                    try 
+                    {
                         chArray = run.getCharArr(inputString);
                         System.out.print("char arr of the String is: ");
-                        for (int i = 0; i < chArray.length; i++) {
+                        for (int i = 0; i < chArray.length; i++) 
+                        {
                             System.out.print(chArray[i] + " ");
                         }
                         System.out.println();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 3: {
+                case 3: 
+                {
                     inputString = get.getStringInput();
-                    try {
+                    try 
+                    {
                         character = run.getPenultimate(inputString);
                         System.out.println("The before Last letter in the String is " + character);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 4: {
+                case 4: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter the letter you want to find occurance: ");
                     character = scan.next().charAt(0);
-                    try {
+                    try 
+                    {
                         occurance = run.getOccurance(inputString, character);
                         System.out.println("The number of occurance of the given letter is " + occurance);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 5: {
+                case 5: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter the letter you want to find greatest position: ");
                     character = scan.next().charAt(0);
-                    try {
+                    try 
+                    {
                         position = run.getGreatestPosition(inputString, character);
-                        if (position != 0) {
+                        if (position != 0) 
+                        {
                             System.out.println("The Greatest Position of the given letter is: " + (position));
-                        } else {
+                        } 
+                        else 
+                        {
                             System.out.println("The given letter is not available");
                         }
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 6: {
+                case 6: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter how many index from last you want to print: ");
                     index = get.getIntegerInput(index);
-                    try {
+                    try 
+                    {
                         outputString = run.getLastNCharacters(inputString, index);
                         System.out.println("");
                         System.out.println(outputString);
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 7: {
+                case 7: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter how many index from first you want to print: ");
                     index = get.getIntegerInput(index);
-                    try {
+                    try 
+                    {
                         outputString = run.getFirstNCharacters(inputString, index);
                         System.out.println("");
                         System.out.println(outputString);
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    }
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 8: {
+                case 8: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter first letters to replace: ");
                     inputString2 = scan.next();
-                    try {
+                    try 
+                    {
                         outputString = run.replaceFirstNCharacters(inputString, inputString2);
                         System.out.println("");
                         System.out.println(outputString);
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 9: {
+                case 9: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter the starting letters to compare: ");
                     comparingString = scan.next();
-                    try {
-                        outputString = run.compareFirstNCharacters(inputString, comparingString);
+                    try 
+                    {
+                        value = run.compareFirstNCharacters(inputString, comparingString);
                         System.out.println("");
-                        System.out.println(outputString);
+                        System.out.println(value);
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 10: {
+                case 10: 
+                {
                     inputString = get.getStringInput();
                     System.out.println("Enter the Last letters to compare: ");
                     comparingString = scan.next();
-                    try {
-                        outputString = run.compareLastNCharacters(inputString, comparingString);
+                    try 
+                    {
+                        value = run.compareLastNCharacters(inputString, comparingString);
                         System.out.println("");
-                        System.out.println(outputString);
+                        System.out.println(value);
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 11: {
+                case 11: 
+                {
                     inputString = get.getStringInput();
-                    try {
+                    try 
+                    {
                         outputString = run.convertToUppercase(inputString);
                         System.out.println("String to lowercase is: " + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 12: {
+                case 12: 
+                {
                     inputString = get.getStringInput();
-                    try {
+                    try 
+                    {
                         outputString = run.convertToLowercase(inputString);
                         System.out.println("String to uppercase is: " + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 13: {
+                case 13: 
+                {
                     inputString = get.getStringInput();
-                    try {
+                    try 
+                    {
                         outputString = run.getReverse(inputString);
                         System.out.println("The reverse of the String is: " + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 14: {
+                case 14: 
+                {
                     int space = 1;
                     inputString = get.getStringLineInput();
-                    try {
+                    try 
+                    {
                         stringArray = run.stringToStringArray(inputString);
                         space = stringArray.length;
-                        for (int i = 0; i < space; i++) {
+                        for (int i = 0; i < space; i++) 
+                        {
                             System.out.print(stringArray[i] + " ");
                         }
                         System.out.println("");
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 15: {
+                case 15: 
+                {
                     inputString = get.getStringLineInput();
-                    try {
+                    try 
+                    {
                         outputString = run.getStringWithoutSpace(inputString);
                         System.out.println("Without space is: " + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 16: {
+                case 16: 
+                {
                     int space = 1;
                     inputString = get.getStringLineInput();
-                    try {
-                        stringArray = run.getStringArray(inputString);
-                        for (int i = 0; i < run.getLength(inputString); i++) {
+                    try 
+                    {
+                        stringArray = run.stringToStringArray(inputString);
+                        for (int i = 0; i < run.getLength(inputString); i++) 
+                        {
                             if (inputString.charAt(i) == ' ')
                                 space++;
                         }
-                        for (int i = 0; i < space; i++) {
+                        for (int i = 0; i < space; i++) 
+                        {
                             System.out.print('"' + stringArray[i] + '"');
                         }
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     System.out.println();
                     break;
                 }
-                case 17: {
+                case 17: 
+                {
                     System.out.println("Enter how many words you want to enter: ");
                     int number = get.getIntegerInput(index);
                     String[] stringArray2 = new String[number];
                     System.out.println("Enter the Strings ");
-                    for (int i = 0; i < number; i++) {
+                    for (int i = 0; i < number; i++) 
+                    {
                         stringArray2[i] = scan.next();
                     }
                     System.out.println("Enter any Symbol to replace: ");
-                    char symbol = scan.next().charAt(0);
-                    try {
+                    String symbol = scan.next();
+                    try 
+                    {
                         outputString = run.mergeStringsWithSymbols(stringArray2, number, symbol);
                         System.out.println("Output string is: " + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 18: {
+                case 18: 
+                {
                     System.out.println("Enter two Strings ");
                     inputString = scan.next();
                     inputString2 = scan.next();
-                    try {
+                    try 
+                    {
                         value = run.compareCaseSensitive(inputString, inputString2);
                         System.out.println(value);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 19: {
+                case 19: 
+                {
                     System.out.println("Enter two Strings ");
                     inputString = scan.next();
                     inputString2 = scan.next();
-                    try {
+                    try 
+                    {
                         value = run.compareCaseInSensitive(inputString, inputString2);
                         System.out.println(value);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e) 
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                case 20: {
+                case 20: 
+                {
                     inputString = get.getStringLineInput();
-                    try {
+                    try 
+                    {
                         outputString = run.properString(inputString);
                         System.out.println("");
                         System.out.println("Output without begining and end spaces :" + outputString);
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    } 
+                    catch (Exception e)
+                    {
+                        System.out.println(e);
                     }
                     break;
                 }
-                default: {
+                default: 
+                {
                     System.out.println("Enter value between 1 and 20");
                     break;
                 }

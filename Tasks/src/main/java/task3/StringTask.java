@@ -190,6 +190,7 @@ public class StringTask
     //EX17
     public String mergeStringsWithSymbols(String[] stringArray, int number, String symbol) throws UserDefinedException 
     {
+        checkNull(stringArray);
         return String.join(symbol, stringArray);
     }
     //EX18

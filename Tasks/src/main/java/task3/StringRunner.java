@@ -42,6 +42,12 @@ public class StringRunner
         }
         return number;
     }
+    
+    public char getCharacterInput()
+    {
+    	char character = scan.next().charAt(0);
+    	return character;
+    }
 
 
     public static void main(String[] args) throws UserDefinedException 
@@ -117,7 +123,7 @@ public class StringRunner
                 {
                     inputString = get.getStringInput();
                     System.out.println("Enter the letter you want to find occurance: ");
-                    character = scan.next().charAt(0);
+                    character = get.getCharacterInput();
                     try 
                     {
                         occurance = run.getOccurance(inputString, character);
@@ -133,7 +139,7 @@ public class StringRunner
                 {
                     inputString = get.getStringInput();
                     System.out.println("Enter the letter you want to find greatest position: ");
-                    character = scan.next().charAt(0);
+                    character = get.getCharacterInput();
                     try 
                     {
                         position = run.getGreatestPosition(inputString, character);

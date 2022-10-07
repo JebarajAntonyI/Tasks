@@ -1,11 +1,14 @@
 package task8;
 
 import java.io.File;
+
 import java.io.FileOutputStream;
 
 import java.io.IOException;
 
 import java.io.OutputStream;
+
+import java.text.ParseException;
 
 import java.util.Properties;
 
@@ -49,7 +52,7 @@ public class FileRunner
 		return inputStringArr;
 	}
 
-	public static void main(String[] args) throws UserDefinedException, IOException
+	public static void main(String[] args) throws UserDefinedException, IOException, ParseException
 	{
 		FileRunner get = new FileRunner();
 		FileTask run = new FileTask();
@@ -161,6 +164,26 @@ public class FileRunner
 					{
 						SingletonClass one = SingletonClass.getInstance();
 						System.out.println(one.outputString);
+						break;
+					}
+					
+					case 11:
+					{
+						TimeTask time = new TimeTask();
+						String time1 =  time.getDateTime1();
+						System.out.println("1) Current Date and Time::  " + time1);
+						String time2 = time.getDateTime2();
+						System.out.println("2) Time with milli seconds::  " + time2);
+						String time3 = time.getDateTime3("America/New_York");
+						System.out.println("3 I) Newyork Date and Time::  " + time3 + "\n");
+						time3 = time.getDateTime3("Europe/London");
+						System.out.println("3 II) London Date and Time::  " + time3);
+						String dayOfWeek = time.getDateTime4("29/09/2022");
+						System.out.println("4) Day of given Date is::  " + dayOfWeek);
+						String month = time.getDateTime5(2022, 8, 29);
+						System.out.println("5) Month of given Date is::  " + month);
+						int year = time.getDateTime6(29, 05, 2022);
+						System.out.println("6) Year of given Date is::  " + year);
 						break;
 					}
 					

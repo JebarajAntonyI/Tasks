@@ -2,8 +2,8 @@ package tester;
 
 import java.util.Scanner;
 
+import basic.hashmap.HashMapTask;
 import myException.UserDefinedException;
-import task7.HashMapTask;
 
 public class Task7Tester 
 {

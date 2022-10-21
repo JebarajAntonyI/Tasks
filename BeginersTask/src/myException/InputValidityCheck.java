@@ -21,5 +21,13 @@ public class InputValidityCheck
 			throw new UserDefinedException("Input value is empty");
 		}
 	}
+	
+	public static void indexCheck(int size, int index) throws UserDefinedException
+	{
+		if (index >= size || index < 0)
+		{
+			throw new UserDefinedException ("The Index value is outside the boundary");
+		}
+	}
 
 }

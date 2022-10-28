@@ -162,7 +162,7 @@ public class AdminMethods extends UserMethods
 	{
 		List<Customer> customerList = new ArrayList<>();
 		Map<Integer, Customer> customerMap = new HashMap<>();
-		customerMap = tableAccessObj.getCustomerDetails();
+		customerMap = tableAccessObj.getAllCustomerDetails();
 		Collection<Customer> customerCollections = customerMap.values();
 		customerList.addAll(customerCollections);
 		return customerList;
@@ -217,7 +217,7 @@ public class AdminMethods extends UserMethods
 	public void modifyCustomerDetails(Customer customerPojo) throws SQLException, UserDefinedException 
 	{
 		InputValidityCheck.checkNull(customerPojo);
-		tableAccessObj.modifyUserDetails(customerPojo);
+		tableAccessObj.modifyCustomerDetails(customerPojo);
 	}
 
 	public void modifyAccountDetails(Account accountPojo) throws SQLException, UserDefinedException 

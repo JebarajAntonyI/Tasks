@@ -1,11 +1,14 @@
 package com.banking.methods;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.banking.db.TableAccess;
 import com.banking.pojo.Account;
+import com.banking.pojo.Transaction;
 import com.banking.pojo.User;
 import com.user.exception.InputValidityCheck;
 import com.user.exception.UserDefinedException;
@@ -18,7 +21,8 @@ public class UserMethods {
 	{
 		Map<Integer, Map<Long, Account>> accountMap = new HashMap<Integer, Map<Long, Account>>();
 		accountMap = tableAccessObj.getAllAccountDetails();
-		Map<Long, Account> innerMap = accountMap.get(userId);
+		Map<Long, Account> innerMap = new HashMap<>();
+		innerMap = accountMap.get(userId);
 		if (innerMap == null) 
 		{
 			throw new UserDefinedException("The UserId is Not Available");
@@ -36,7 +40,7 @@ public class UserMethods {
 		Account balancePojo = viewAccount(userId, accountNo);
 		if (balancePojo == null) 
 		{
-			throw new UserDefinedException("The UserId and Account Number is Matched");
+			throw new UserDefinedException("The UserId and Account Number is Not Matched");
 		}
 		return balancePojo.getBalance();
 	}
@@ -109,7 +113,17 @@ public class UserMethods {
 		modifyAccountPojo.setAccountNo(accountNo);
 		modifyAccountPojo.setOnlineStatus(status);
 		tableAccessObj.modifyAccountDetails(modifyAccountPojo);
-		
+	}
+	
+	public List<Transaction> getTransactionDetails(long accountNo) throws SQLException, UserDefinedException 
+	{
+		List<Transaction> transactionList = new ArrayList<>();
+		transactionList = tableAccessObj.getTransactionDetails(accountNo);
+		if (transactionList == null) 
+		{
+			throw new UserDefinedException("The Account Number is not Available");
+		}
+		return transactionList;
 	}
 
 }

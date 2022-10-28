@@ -54,7 +54,7 @@ public class CustomerConnect
 	public void customers(int userId) throws UserDefinedException, SQLException
 	{
 		this.userId = userId;
-		if(userLogin.getCustomerStatus(userId))
+		if(userLogin.getCustomerStatus(userId) == true)
 		{
 			System.out.println("......................WELCOME CUSTOMER......................");
 			long accountNo = selectAccount();
@@ -98,13 +98,18 @@ public class CustomerConnect
 					
 					case 2:
 					{
-						Account accountPojo = new Account();
-						accountPojo = customerMethods.viewAccount(userId, accountNo);
-						logger.info("Account Number: " + accountPojo.getAccountNo() + "\n"
-								+ "Account Type: " + accountPojo.getAccountType() + "\n"
-								+ "Account Branch: " + accountPojo.getAccountBranch() + "\n"
-								+ "IFSC: " + accountPojo.getIfsc());
-						break;
+						try {
+							Account accountPojo = new Account();
+							accountPojo = customerMethods.viewAccount(userId, accountNo);
+							logger.info("Account Number: " + accountPojo.getAccountNo() + "\n"
+									+ "Account Type: " + accountPojo.getAccountType() + "\n"
+									+ "Account Branch: " + accountPojo.getAccountBranch() + "\n"
+									+ "IFSC: " + accountPojo.getIfsc());
+							break;
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
 					
 					case 3:
@@ -175,6 +180,7 @@ public class CustomerConnect
 						catch (UserDefinedException ue)
 						{
 							logger.log(Level.SEVERE, ue.getMessage());
+							ue.printStackTrace();
 						}
 						break;
 					}
@@ -210,54 +216,54 @@ public class CustomerConnect
 					default:
 						System.out.println("Select Value Between 1 and 10");
 						break;
-				}
+					}
 //				}
 //				catch(UserDefinedException ue)
 //				{
 //					logger.log(Level.SEVERE, ue.getMessage());
 //				}
-				System.out.println("...........................................................");
-				logger.info("\nSelect Which Operation you want to Perform "
-						+ "\n	 1) View User Information"
-						+ "\n	 2) View Account Details"
-						+ "\n	 3) View Transaction Details"
-						+ "\n	 4) Check Balance"
-						+ "\n	 5) Deposit"
-						+ "\n	 6) Request Withdraw"
-						+ "\n	 7) Transfer"
-						+ "\n	 8) Change Password"
-						+ "\n	 9) Change Account"
-						+ "\n	10) Logout");
-				choice = getInput.getIntegerInput();
-				System.out.println("...........................................................");
+					System.out.println("...........................................................");
+					logger.info("\nSelect Which Operation you want to Perform "
+							+ "\n	 1) View User Information"
+							+ "\n	 2) View Account Details"
+							+ "\n	 3) View Transaction Details"
+							+ "\n	 4) Check Balance"
+							+ "\n	 5) Deposit"
+							+ "\n	 6) Request Withdraw"
+							+ "\n	 7) Transfer"
+							+ "\n	 8) Change Password"
+							+ "\n	 9) Change Account"
+							+ "\n	10) Logout");
+					choice = getInput.getIntegerInput();
+					System.out.println("...........................................................");
+				}
 			}
-		}
-		catch (UserDefinedException ue)
-		{
-			logger.severe(ue.getMessage());
-			logger.info("Your Account is Not Active"
-					+ "\n	1) Request for Active"
-					+ "\n	Press any Other number to Exit");
-			int choice = getInput.getIntegerInput();
-			
-			switch(choice)
+			catch (UserDefinedException ue)
 			{
-			case 1:
-				logger.info("Enter your Request Message: ");
-				String message = scan.nextLine();
-				scan.nextLine();
-				customerMethods.requestMessage(userId, accountNo, message);
-				break;
+				logger.severe(ue.getMessage());
+				logger.info("Your Account is Not Active"
+						+ "\n	1) Request for Active"
+						+ "\n	Press any Other number to Exit");
+				int choice = getInput.getIntegerInput();
 				
-			default:
-				break;
+				switch(choice)
+				{
+				case 1:
+					logger.info("Enter your Request Message: ");
+					String message = scan.nextLine();
+					scan.nextLine();
+					customerMethods.requestMessage(userId, accountNo, message);
+					break;
+					
+				default:
+					break;
+				}
+				customerMethods.setAccountLogin(accountNo, "OFFLINE");
 			}
-			customerMethods.setAccountLogin(accountNo, "OFFLINE");
 		}
-	}
-	else
-	{
-		logger.severe("The Customer Id is Not Available/Active");
+		else
+		{
+			logger.severe("The Customer Id is Not Available/Active");
 		}
 	}
 }

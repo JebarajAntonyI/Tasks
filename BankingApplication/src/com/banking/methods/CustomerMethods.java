@@ -84,7 +84,7 @@ public class CustomerMethods extends UserMethods {
 		{
 			userLogin.getAccountStatus(toAccount);
 		}
-		double balance = checkBalance(userId, accountNo);
+		double balance = checkBalance(accountNo);
 		String regxPattern = "\\d{12}";
 
 		if (("" + toAccount).matches(regxPattern)) 
@@ -113,7 +113,7 @@ public class CustomerMethods extends UserMethods {
 					toBalance = Double.sum(toBalance, amount);
 					time = System.currentTimeMillis();
 					transactionPojo = new Transaction();
-					transactionPojo.setCustomerId(userId);
+					transactionPojo.setCustomerId(toUserId);
 					transactionPojo.setTransactionTime(time);
 					transactionPojo.setModeOfTransaction("Received");
 					transactionPojo.setPrimaryAccount(toAccount);

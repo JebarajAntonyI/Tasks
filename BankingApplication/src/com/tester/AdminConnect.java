@@ -44,13 +44,14 @@ public class AdminConnect
 				+ "\n	 6) View all Users"
 				+ "\n	 7) View all Accounts"
 				+ "\n	 8) View User Transactions"
-				+ "\n	 9) View Customer Details"
-				+ "\n	10) Change Password"
-				+ "\n	11) Access Own Bank Account"
-				+ "\n	12) View Request Messages"
-				+ "\n	13) Activate Customer ID"
-				+ "\n	14) Activate Account Number"
-				+ "\n	15) Exit Account");
+				+ "\n	 9) View Account Transaction"
+				+ "\n	10) View Customer Details"
+				+ "\n	11) Change Password"
+				+ "\n	12) Access Own Bank Account"
+				+ "\n	13) View Request Messages"
+				+ "\n	14) Activate Customer ID"
+				+ "\n	15) Activate Account Number"
+				+ "\n	16) Exit Account");
 		int choice = getInput.getIntegerInput();
 		logger.info("");
 		System.out.println("...........................................................");
@@ -190,6 +191,21 @@ public class AdminConnect
 				
 				case 9:
 				{
+					logger.info("Enter Account No to Check Transactions");
+					long accountNo = getInput.getLongInput();
+					List<Transaction> transactionList = new ArrayList<>();
+					transactionList = adminMethods.getTransactionDetails(accountNo);
+					InputValidityCheck.checkNull(transactionList);
+					int size = transactionList.size();
+					for(int i=0; i<size; i++)
+					{
+						System.out.println(transactionList.get(i) + "\n");
+					}
+					break;
+				}
+				
+				case 10:
+				{
 					List<Customer> customerList = new ArrayList<>();
 					customerList = adminMethods.viewCustomerDetails();
 					InputValidityCheck.checkNull(customerList);
@@ -201,7 +217,7 @@ public class AdminConnect
 					break;
 				}
 				
-				case 10:
+				case 11:
 				{
 					logger.info("Enter Last Password");
 					String oldPassword = scan.next();
@@ -219,13 +235,13 @@ public class AdminConnect
 					break;
 				}
 				
-				case 11:
+				case 12:
 				{
 					customerConnect.customers(this.userId);
 					break;
 				}
 				
-				case 12:
+				case 13:
 				{
 					logger.info("Enter Which Status you want to view "
 							+ "\n	1) Pending"
@@ -253,7 +269,7 @@ public class AdminConnect
 					break;
 				}
 				
-				case 13:
+				case 14:
 				{
 					logger.info("Enter Request Number to Approve/Reject");
 					int requestNumber = getInput.getIntegerInput();
@@ -266,7 +282,7 @@ public class AdminConnect
 						logger.info("Enter Customer Id to Activate the Account");
 						int customerId = getInput.getIntegerInput();
 						Customer customerPojo = new Customer();
-						customerPojo.setUserId(customerId);
+						customerPojo.setCustomerId(customerId);
 						customerPojo.setCustomerStatus("ACTIVE");
 						adminMethods.modifyCustomerDetails(customerPojo);
 						adminMethods.replayMessage(requestNumber, "Approved");
@@ -280,7 +296,7 @@ public class AdminConnect
 					break;
 				}
 				
-				case 14:
+				case 15:
 				{
 					logger.info("Enter Request Number to Approve/Reject");
 					int requestNumber = getInput.getIntegerInput();
@@ -307,7 +323,7 @@ public class AdminConnect
 					break;
 				}
 				
-				case 15:
+				case 16:
 					break A;
 					
 				default:
@@ -330,13 +346,14 @@ public class AdminConnect
 					+ "\n	 6) View all Users"
 					+ "\n	 7) View all Accounts"
 					+ "\n	 8) View User Transactions"
-					+ "\n	 9) View Customer Details"
-					+ "\n	10) Change Password"
-					+ "\n	11) Access Own Bank Account"
-					+ "\n	12) View Request Messages"
-					+ "\n	13) Activate Customer ID"
-					+ "\n	14) Activate Account Number"
-					+ "\n	15) Exit Account");
+					+ "\n	 9) View Account Transaction"
+					+ "\n	10) View Customer Details"
+					+ "\n	11) Change Password"
+					+ "\n	12) Access Own Bank Account"
+					+ "\n	13) View Request Messages"
+					+ "\n	14) Activate Customer ID"
+					+ "\n	15) Activate Account Number"
+					+ "\n	16) Exit Account");
 			choice = getInput.getIntegerInput();
 			System.out.println("...........................................................");
 			

@@ -58,32 +58,25 @@ public class BankRunner {
 		}while(value != true);
 
 		String userType = userLogin.getUserType(userId);
-//		if (userLogin.getCustomerStatus(userId))
-//		{
-			userFace.setUserLogin(userId, "ONLINE");
-			try
+		userFace.setUserLogin(userId, "ONLINE");
+		try
+		{
+			if(userType.equals("Customer"))
 			{
-				if(userType.equals("Customer"))
-				{
-					customerConnect.customers(userId);
-				}
-				else if(userType.equals("ADMIN"))
-				{
-					adminConnect.admin(userId);
-				}
+				customerConnect.customers(userId);
 			}
-			catch(UserDefinedException ue)
+			else if(userType.equals("ADMIN"))
 			{
-				logger.log(Level.SEVERE, ue.getMessage());
-				
-			}			
-			userFace.setUserLogin(userId, "OFFLINE");
-			System.out.println("..................THANKYOU HAVE A NICE DAY.................");
-//		}
-//		else
-//		{
-//			logger.severe("Your User Id is Not Active");
-//		}
+				adminConnect.admin(userId);
+			}
+		}
+		catch(UserDefinedException ue)
+		{
+			logger.log(Level.SEVERE, ue.getMessage());
+			
+		}			
+		userFace.setUserLogin(userId, "OFFLINE");
+		System.out.println("..................THANKYOU HAVE A NICE DAY.................");
 	}
 }
 

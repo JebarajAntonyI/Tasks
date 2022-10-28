@@ -19,11 +19,9 @@ public interface TableAccessFace
 
 	public void modifyUserDetails(User userPojo) throws SQLException, UserDefinedException;
 
-	public void addCustomerDetails(Customer customerPojo) throws UserDefinedException;//crt
+	public void addCustomerDetails(Customer customerPojo) throws UserDefinedException;
 	
-	public void modifyCustomerDetails(Customer customerPojo) throws SQLException, UserDefinedException;//added
-	
-	//public void addUserCustomerDetails(Customer customerPojo) throws UserDefinedException;
+	public void modifyCustomerDetails(Customer customerPojo) throws SQLException, UserDefinedException;
 	
 	public void addAccountDetails(Account accountPojo) throws UserDefinedException;
 
@@ -41,31 +39,27 @@ public interface TableAccessFace
 
 	public Map<Long, TransactionRequest> getAllTransactionRequestStatus(String status) throws UserDefinedException;
 
-	public TransactionRequest getTransactionRequestStatus(String status, int reqNo) throws UserDefinedException;//crt
+	public TransactionRequest getTransactionRequestStatus(String status, int reqNo) throws UserDefinedException;
 
-//	public int getUserId(int id) throws UserDefinedException;//crt
+	public User getUserInfo(int id) throws UserDefinedException;
 
-//	public int getUserIdViaAccount(long accountNo) throws UserDefinedException;//crt
+	public Customer getCustomerInfo(int id) throws UserDefinedException;
 
-	public User getUserInfo(int id) throws UserDefinedException;//crt
-
-	public Customer getCustomerInfo(int id) throws UserDefinedException;//crt
-
-	public Account getAccountInfo(long accountNo) throws UserDefinedException;//crt		
+	public Account getAccountInfo(long accountNo) throws UserDefinedException;	
 
 	public Map<Integer, User> getAllUserMap() throws SQLException, UserDefinedException;
 
 	public Map<Integer, Map<Long, Account>> getAllAccountDetails(Integer... userId) throws SQLException, UserDefinedException;
 
-	public Map<Long, Account> getAccountDetails(long accountNo) throws SQLException, UserDefinedException;//crt
+	public Map<Long, Account> getAccountDetails(long accountNo) throws SQLException, UserDefinedException;
 
-	public Map<Long, Account> getSpecificUserAccount(int userId) throws UserDefinedException;//crt
+	public Map<Long, Account> getSpecificUserAccount(int userId) throws UserDefinedException;
 
 	public Map<Long, Map<Integer, Transaction>> getAllTransactionDetailsMap(int customerId) throws SQLException, UserDefinedException;
 
 	public List<Transaction> getTransactionDetails(long accountNo) throws SQLException, UserDefinedException;
 
-	public Map<Integer, Customer> getCustomerDetails() throws UserDefinedException, SQLException;
+	public Map<Integer, Customer> getAllCustomerDetails() throws UserDefinedException, SQLException;
 
 	public Map<Integer, CustomerRequest> getRequestMessages(String reqStatus) throws SQLException, UserDefinedException;
 

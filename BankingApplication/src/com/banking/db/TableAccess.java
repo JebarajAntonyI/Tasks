@@ -75,8 +75,6 @@ public class TableAccess implements TableAccessFace
 		{
 			sBuilder.append(inputStrings[i] + ", ");
 		}
-		int index = sBuilder.lastIndexOf(",");
-		sBuilder.replace(index, index + 1, "");
 		return sBuilder;
 	}
 
@@ -131,7 +129,13 @@ public class TableAccess implements TableAccessFace
 				column = "ONLINE_STATUS = '" + onlineStatus + "'";
 				buildQuery = getQuery(buildQuery, column);
 			}
-			String query = "" + buildQuery.append(" WHERE USER_ID = ?;");
+			int index = buildQuery.lastIndexOf(",");
+			if (index < 0) 
+			{
+				throw new UserDefinedException("Insert any Value in User Pojo to modify user Table");
+			}
+			buildQuery.replace(index, index + 1, "");
+			String query = "" + buildQuery.append("WHERE USER_ID = ?;");
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
 				statement.setInt(1, userId);
@@ -245,15 +249,20 @@ public class TableAccess implements TableAccessFace
 				column = "ONLINE_STATUS = '" + onlineStatus + "'";
 				buildQuery = getQuery(buildQuery, column);
 			}
-			String query = "" + buildQuery.append(" WHERE USER_ID = ?;");
-			try (PreparedStatement statement = connect.prepareStatement(query)) 
+			int index = buildQuery.lastIndexOf(",");
+			if (index >= 0) 
 			{
-				statement.setInt(1, customerId);
-				statement.executeUpdate();
+				buildQuery.replace(index, index + 1, "");
+				String query = "" + buildQuery.append(" WHERE USER_ID = ?;");
+				try (PreparedStatement statement = connect.prepareStatement(query)) 
+				{
+					statement.setInt(1, customerId);
+					statement.executeUpdate();
+				} 
 			}
-//			Customer Details Update
+			//			Customer Details Update
 			buildQuery = new StringBuilder();
-			buildQuery.append("UPDATE User_Information SET ");
+			buildQuery.append("UPDATE Customer_Details SET ");
 			if (aadhar != 0) 
 			{
 				column = "AADHAR_NO = '" + aadhar + "'";
@@ -274,11 +283,17 @@ public class TableAccess implements TableAccessFace
 				column = "CUSTOMER_STATE = '" + customerState + "'";
 				buildQuery = getQuery(buildQuery, column);
 			}
-			String query2 = "" + buildQuery.append(" WHERE CUSTOMER_ID = ?;");
-			try (PreparedStatement statement = connect.prepareStatement(query2)) 
+			index = buildQuery.lastIndexOf(",");
+			if (index >= 0) 
 			{
-				statement.setInt(1, customerId);
-				statement.executeUpdate();
+				buildQuery.replace(index, index + 1, "");
+				String query2 = "" + buildQuery.append(" WHERE CUSTOMER_ID = ?;");
+				try (PreparedStatement statement = connect.prepareStatement(query2)) 
+				{
+					statement.setInt(1, customerId);
+					System.out.println(query2);
+					statement.executeUpdate();
+				} 
 			}
 		}
 	}
@@ -325,15 +340,11 @@ public class TableAccess implements TableAccessFace
 		String accountType = accountPojo.getAccountType();
 		String ifsc = accountPojo.getIfsc();
 		double balance = accountPojo.getBalance();
-		String status = accountPojo.getAccountStatus();
+		String accountStatus = accountPojo.getAccountStatus();
+		String onlineStatus = accountPojo.getOnlineStatus();
 		if (customerId != 0) 
 		{
 			column = "CUSTOMER_ID = " + customerId;
-			getQuery(buildQuery, column);
-		}
-		if (accountNo != 0) 
-		{
-			column = "ACCOUNT_NO = " + accountNo;
 			getQuery(buildQuery, column);
 		}
 		if (branch != null) 
@@ -356,12 +367,23 @@ public class TableAccess implements TableAccessFace
 			column = "BALANCE = " + balance;
 			getQuery(buildQuery, column);
 		}
-		if (status != null) 
+		if (accountStatus != null) 
 		{
-			column = "ACCOUNT_STATUS = '" + status + "'";
+			column = "ACCOUNT_STATUS = '" + accountStatus + "'";
 			getQuery(buildQuery, column);
 		}
-		String query = "" + buildQuery.append(" WHERE ACCOUNT_NO = ?;");
+		if (onlineStatus != null) 
+		{
+			column = "ONLINE_STATUS = '" + onlineStatus + "'";
+			getQuery(buildQuery, column);
+		}
+		int index = buildQuery.lastIndexOf(",");
+		if (index < 0) 
+		{
+			throw new UserDefinedException("Insert any values in Account pojo to modify account table");
+		}
+		buildQuery.replace(index, index + 1, "");
+		String query = "" + buildQuery.append("WHERE ACCOUNT_NO = ?;");
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
@@ -499,7 +521,13 @@ public class TableAccess implements TableAccessFace
 			column = "AMOUNT = " + amount;
 			getQuery(buildQuery, column);
 		}
-		String query = "" + buildQuery.append(" WHERE REQUEST_NO = ?;");
+		int index = buildQuery.lastIndexOf(",");
+		if (index < 0) 
+		{
+			throw new UserDefinedException("Insert any values in pojo to modify table");
+		}
+		buildQuery.replace(index, index + 1, "");
+		String query = "" + buildQuery.append("WHERE REQUEST_NO = ?;");
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
@@ -507,10 +535,10 @@ public class TableAccess implements TableAccessFace
 				statement.setInt(1, reqNo);
 				statement.executeUpdate();
 			}
-		} 
-		catch (SQLException se) 
+		}
+		catch (SQLException se)
 		{
-			throw new UserDefinedException(se);
+			throw new UserDefinedException("SQL syntax error", se);
 		}
 	}
 
@@ -580,50 +608,6 @@ public class TableAccess implements TableAccessFace
 		return statusPojo;
 	}
 
-//	@Override
-//	public int getUserId(int id) throws UserDefinedException 
-//	{
-//		String query = "SELECT USER_ID FROM User_Information WHERE USER_ID = ?";
-//		try (Connection connect = getConnection()) 
-//		{
-//			try (PreparedStatement statement = connect.prepareStatement(query)) 
-//			{
-//				statement.setLong(1, id);
-//				try (ResultSet result = statement.executeQuery()) 
-//				{
-//					result.next();
-//					return result.getInt("USER_ID");
-//				}
-//			}
-//		} 
-//		catch (SQLException se) 
-//		{
-//			throw new UserDefinedException("The User ID does not exist", se);
-//		}
-//	}
-
-//	@Override
-//	public int getUserIdViaAccount(long accountNo) throws UserDefinedException 
-//	{
-//		String query = "SELECT CUSTOMER_ID FROM Account_Details WHERE ACCOUNT_NO = ?";
-//		try (Connection connect = getConnection()) 
-//		{
-//			try (PreparedStatement statement = connect.prepareStatement(query)) 
-//			{
-//				statement.setLong(1, accountNo);
-//				try (ResultSet result = statement.executeQuery()) 
-//				{
-//					result.next();
-//					return result.getInt("CUSTOMER_ID");
-//				}
-//			}
-//		} 
-//		catch (SQLException se) 
-//		{
-//			throw new UserDefinedException("The User ID does not exist", se);
-//		}
-//	}
-
 	@Override
 	public User getUserInfo(int id) throws UserDefinedException 
 	{
@@ -658,11 +642,14 @@ public class TableAccess implements TableAccessFace
 	@Override
 	public Customer getCustomerInfo(int id) throws UserDefinedException 
 	{
-		String query = "SELECT * FROM Customer_Details WHERE CUSTOMER_ID = ?";
+//		String query = "SELECT * FROM Customer_Details WHERE CUSTOMER_ID = ?;";
+		String query = "SELECT * FROM User_Information, Customer_Details WHERE Customer_Details.CUSTOMER_ID = ?;";
+
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
+				statement.setInt(1, id);
 				try (ResultSet result = statement.executeQuery()) 
 				{
 					result.next();
@@ -680,7 +667,7 @@ public class TableAccess implements TableAccessFace
 					customerPojo.setCustomerStatus(result.getString("CUSTOMER_STATE"));
 					customerPojo.setOnlineStatus(result.getString("ONLINE_STATUS"));
 					return customerPojo;
-					}
+				}
 			}
 		} 
 		catch (SQLException se) 
@@ -798,7 +785,7 @@ public class TableAccess implements TableAccessFace
 				throw new UserDefinedException("No Such Column Available in Account Details", se);
 			}
 		}
-		if (userId == null)
+		if (userId.length == 0)
 		{
 			return accountMap;
 		}
@@ -968,7 +955,7 @@ public class TableAccess implements TableAccessFace
 	}
 
 	@Override
-	public Map<Integer, Customer> getCustomerDetails() throws UserDefinedException, SQLException 
+	public Map<Integer, Customer> getAllCustomerDetails() throws UserDefinedException, SQLException 
 	{
 		String query = "SELECT * FROM User_Information, Customer_Details WHERE User_Information.USER_ID = Customer_Details.CUSTOMER_ID";
 		Map<Integer, Customer> customerMap = new HashMap<>();

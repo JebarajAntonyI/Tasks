@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All User Table</title>
+<style type="text/css">
+	table
+	{
+		width: 70%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	table, th, td
+	{
+		border: 2px solid rgb(46, 52, 54);
+		border-collapse: collapse;
+		text-align: center;
+		padding: 15px;
+	}
+	th
+	{
+		font-size: 18px;
+	}
+	body
+	{
+		background-color: #F5F5DC;
+	}
+</style>
+</head>
+<body>
+
+	<table>
+		<tr>
+			<th>User ID</th>
+			<th>Name</th>
+			<th>DOB</th>
+			<th>Mobile</th>
+			<th>Email</th>
+			<th>User Type</th>
+		</tr>
+		
+		<tr>
+			<td><a href="CustomerDetails.jsp">1</a></td>
+			<td>Jeba</td>
+			<td>18-08-1998</td>
+			<td>1234567890</td>
+			<td>jeba@zohocorp.com</td>
+			<td>Admin</td>
+		</tr>
+		
+		<tr>
+			<td>2</td>
+			<td>Jose</td>
+			<td>21-02-2000</td>
+			<td>2345678910</td>
+			<td>jose@gmail.com</td>
+			<td>Customer</td>
+		</tr>
+		
+		<tr>
+			<td>3</td>
+			<td>Deva</td>
+			<td>12-07-2001</td>
+			<td>3456789102</td>
+			<td>deva@gmail.com</td>
+			<td>Customer</td>
+		</tr>
+	</table>
+	<div>
+		<a href="AdminHome.jsp"><button>Back</button></a>
+	</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

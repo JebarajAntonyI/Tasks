@@ -29,7 +29,7 @@ h2
 body
 {
 	/* background-color: #FFE4C4; */
-	background-image: url('/home/inc3/Downloads/Jeba/html images/4.jpg');
+	background-image:  url("../images/1.jpg");
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: 100% 100%;

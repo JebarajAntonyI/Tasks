@@ -188,7 +188,11 @@ public class AdminMethods extends UserMethods
 	public void addCustomerDetailsOnly(Customer customerPojo) throws UserDefinedException
 	{
 		InputValidityCheck.checkNull(customerPojo);
-		tableAccessObj.addCustomerDetailsOnly(customerPojo);
+		int customerId = customerPojo.getCustomerId();
+		if (userLogin.userIdValidation(customerId) == true)
+		{
+			tableAccessObj.addCustomerDetailsOnly(customerPojo);
+		}
 	}
 	
 	public long addAccountDetails(Account accountPojo) throws UserDefinedException

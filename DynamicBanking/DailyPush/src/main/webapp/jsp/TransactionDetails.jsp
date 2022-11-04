@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.ArrayList, java.util.List, 
 com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 
@@ -61,11 +62,14 @@ com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 		<th> Transaction Status </th>
 	</tr>
 	<c:forEach var = "Transaction" items = "${ transactionList }" >
+	<jsp:useBean id="myDate" class="java.util.Date"/>
+    <c:set target="${myDate}" property="time" value="${ Transaction.getTransactionTime() }"/>
 	<tr>
 		<td>${ Transaction.getTransactionId() }</td>
 		<td>${ Transaction.getPrimaryAccount() }</td>
 		<td>${ Transaction.getSecondaryAccount() }</td>
-		<td>${ Transaction.getTransactionTime() }</td>
+		<%-- <td>${ Transaction.getTransactionTime() }</td> --%>
+		<td><fmt:formatDate value="${myDate}"  pattern="dd-MM-yyyy  HH:mm:ss"/></td>
 		<td>${ Transaction.getModeOfTransaction() }</td>
 		<td>${ Transaction.getTransactionType() }</td>
 		<td>${ Transaction.getAmount() }</td>

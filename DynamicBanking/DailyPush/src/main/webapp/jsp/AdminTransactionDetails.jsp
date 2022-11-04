@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@ page import="java.util.ArrayList, java.util.List, 
 com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 
@@ -33,18 +34,26 @@ com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 <h1 style="text-align:center;"> Transaction Details Page </h1>
 
 <form action="<%= request.getContextPath() %>/servlet">
+<p><input type="number" name="uid" placeholder="Enter User Id">${ uid }</p>
+	<button type = "submit" name="action" value="getAccountList">Submit</button>
+	<%-- <h4>Choose one Account: </h4>
+	<select id = "Acc No" name = "accountNo">
+			<c:forEach var = "account" items = "${ customerAccounts }" >
+				<option value = "${ account }">${ account }</option>
+			</c:forEach>
+	</select> --%>
 <table>
 		<tr>
 			<th><label for = "Account No"> Choose one Account: </label></th>
 			<td><select id = "Acc No" name = "accountNo">
-					<c:forEach var = "account" items = "${ accountList }" >
+					<c:forEach var = "account" items = "${ customerAccounts }" >
 						<option value = "${ account }">${ account }</option>
 					</c:forEach>
 			</select></td>
 		</tr>
 </table>
 <div>
-	<button type = "submit" name="action" value="showTransaction">Submit</button>
+	<button type = "submit" name="action" value="showAdminTransaction">Submit</button>
 </div>
 </form>
 
@@ -81,29 +90,3 @@ com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

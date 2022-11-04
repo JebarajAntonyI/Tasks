@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.banking.db.TableAccess;
+import com.banking.login.UserLogin;
 import com.banking.pojo.Account;
 import com.banking.pojo.Customer;
 import com.banking.pojo.Transaction;
@@ -18,6 +19,8 @@ import com.user.exception.UserDefinedException;
 public class UserMethods {
 
 	private TableAccess tableAccessObj = new TableAccess();
+	UserLogin userLogin = new UserLogin();
+
 
 	public Account viewAccount(int userId, long accountNo) throws SQLException, UserDefinedException 
 	{
@@ -39,6 +42,7 @@ public class UserMethods {
 	
 	public Map<Long, Account> viewAccount(int userId) throws SQLException, UserDefinedException 
 	{
+		userLogin.userIdValidation(userId);
 		Map<Integer, Map<Long, Account>> accountMap = new HashMap<Integer, Map<Long, Account>>();
 		accountMap = tableAccessObj.getAllAccountDetails(userId);
 		Map<Long, Account> innerMap = new HashMap<>();
@@ -47,7 +51,7 @@ public class UserMethods {
 		{
 			return innerMap;
 		}
-		throw new UserDefinedException("The UserId is Not Available");
+		throw new UserDefinedException("No Account Available For This User Id");
 	}
 
 	public double checkBalance(int userId, long accountNo) throws SQLException, UserDefinedException 

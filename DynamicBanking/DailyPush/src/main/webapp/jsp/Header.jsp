@@ -6,8 +6,7 @@
 <meta charset="UTF-8">
 <title>Header</title>
 <style type="text/css">
-button
-{
+button {
 	background-color: red;
 	color: white;
 	padding: 10px 15px;
@@ -19,14 +18,16 @@ button
 </style>
 </head>
 <body>
-	<div style="float:right">
-		<form action="<%= request.getContextPath() %>/servlet" target="_parent">
-			<button type="submit" value="Logout"
-				name="action">Logout</button>
+	<div style="float: right">
+		<form action="<%=request.getContextPath()%>/servlet"
+			target="_parent">
+			<button type="submit" value="Logout" name="action">Logout</button>
 		</form>
 	</div>
 	<div>
-		<h1 style="text-align: center;"><b>JOVIZ BANK</b></h1>
+		<h1 style="text-align: center;">
+			<b>JOVIZ BANK</b>
+		</h1>
 	</div>
 
 </body>

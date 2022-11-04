@@ -38,6 +38,17 @@
 			<td>${ account.value.getAccountStatus() }</td>
 		</tr>
 		</c:forEach>
+		
+		<c:forEach var="account" items="${ account }">
+		<tr>
+			<td>${ account.getAccountNo() }</td>
+			<td>${ account.getAccountType() }</td>
+			<td>${ account.getAccountBranch() }</td>
+			<td>${ account.getIfsc() }</td>
+			<td>${ account.getBalance() }</td>
+			<td>${ account.getAccountStatus() }</td>
+		</tr>
+		</c:forEach>
 		<!-- 
 		<tr>
 			<td><b>Account No: </b></td>

@@ -23,6 +23,10 @@ public class CustomerMethods extends UserMethods {
 
 	public void depositMoney(int userId, long accountNo, double amount) throws SQLException, UserDefinedException 
 	{
+		if(amount <= 0)
+		{
+			throw new UserDefinedException("Enter Amount Properly");
+		}
 		userLogin.getAccountStatus(accountNo);
 		Account accountPojo = viewAccount(userId, accountNo);
 		double balance = Double.sum(accountPojo.getBalance(), amount);
@@ -52,6 +56,10 @@ public class CustomerMethods extends UserMethods {
 
 	public void withdrawMoney(int userId, long accountNo, double amount) throws SQLException, UserDefinedException 
 	{
+		if(amount <= 0)
+		{
+			throw new UserDefinedException("Enter Amount Properly");
+		}
 		userLogin.getAccountStatus(accountNo);
 		Account accountPojo = viewAccount(userId, accountNo);
 		double balance = accountPojo.getBalance();
@@ -76,76 +84,89 @@ public class CustomerMethods extends UserMethods {
 
 	public void transferMoney(int userId, long accountNo, long toAccount, double amount) throws SQLException, UserDefinedException 
 	{
+		int toUserId = 0;
+		if(amount <= 0)
+		{
+			throw new UserDefinedException("Enter Amount Properly");
+		}
 		userLogin.getAccountStatus(accountNo);
 		Account accountPojo = new Account();
-		accountPojo = tableAccessObj.getAccountInfo(toAccount);
-		int toUserId = accountPojo.getCustomerId();
-		if (toUserId != 0) 
+		try
 		{
-			userLogin.getAccountStatus(toAccount);
+			accountPojo = tableAccessObj.getAccountInfo(toAccount);
+			toUserId = accountPojo.getCustomerId();
 		}
-		double balance = checkBalance(accountNo);
-		String regxPattern = "\\d{12}";
-
-		if (("" + toAccount).matches(regxPattern)) 
+		finally
 		{
-			if (balance >= amount) {
-				long time = System.currentTimeMillis();
-				balance = balance - amount;
-				Transaction transactionPojo = new Transaction();
-				transactionPojo.setCustomerId(userId);
-				transactionPojo.setTransactionTime(time);
-				transactionPojo.setModeOfTransaction("Transfer");
-				transactionPojo.setPrimaryAccount(accountNo);
-				transactionPojo.setSecondaryAccount(toAccount);
-				transactionPojo.setTransactionType("Debit");
-				transactionPojo.setAmount(amount);
-				transactionPojo.setClosingBalance(balance);
-				transactionPojo.setTransactionStatus("Success");
-				tableAccessObj.addTransactionDetails(transactionPojo);
-				Account modifyAccountPojo = new Account();
-				modifyAccountPojo.setAccountNo(accountNo);
-				modifyAccountPojo.setBalance(balance);
-				tableAccessObj.modifyAccountDetails(modifyAccountPojo);
-
-				double toBalance = checkBalance(toAccount);
-				if (toUserId != 0) {
-					toBalance = Double.sum(toBalance, amount);
-					time = System.currentTimeMillis();
-					transactionPojo = new Transaction();
-					transactionPojo.setCustomerId(toUserId);
+			if (toUserId != 0) 
+			{
+				userLogin.getAccountStatus(toAccount);
+			}
+			double balance = checkBalance(accountNo);
+			String regxPattern = "^[1-9][0-9]{9, 17}";
+	
+			if (String.valueOf(toAccount).matches(regxPattern)) 
+			{
+				if (balance >= amount) 
+				{
+					long time = System.currentTimeMillis();
+					balance = balance - amount;
+					Transaction transactionPojo = new Transaction();
+					transactionPojo.setCustomerId(userId);
 					transactionPojo.setTransactionTime(time);
-					transactionPojo.setModeOfTransaction("Received");
-					transactionPojo.setPrimaryAccount(toAccount);
-					transactionPojo.setSecondaryAccount(accountNo);
-					transactionPojo.setTransactionType("Credit");
+					transactionPojo.setModeOfTransaction("Transfer");
+					transactionPojo.setPrimaryAccount(accountNo);
+					transactionPojo.setSecondaryAccount(toAccount);
+					transactionPojo.setTransactionType("Debit");
 					transactionPojo.setAmount(amount);
-					transactionPojo.setClosingBalance(toBalance);
+					transactionPojo.setClosingBalance(balance);
 					transactionPojo.setTransactionStatus("Success");
 					tableAccessObj.addTransactionDetails(transactionPojo);
-					modifyAccountPojo = new Account();
-					modifyAccountPojo.setAccountNo(toAccount);
-					modifyAccountPojo.setBalance(toBalance);
+					Account modifyAccountPojo = new Account();
+					modifyAccountPojo.setAccountNo(accountNo);
+					modifyAccountPojo.setBalance(balance);
 					tableAccessObj.modifyAccountDetails(modifyAccountPojo);
+	
+					double toBalance = checkBalance(toAccount);
+					if (toUserId != 0) 
+					{
+						toBalance = Double.sum(toBalance, amount);
+						time = System.currentTimeMillis();
+						transactionPojo = new Transaction();
+						transactionPojo.setCustomerId(toUserId);
+						transactionPojo.setTransactionTime(time);
+						transactionPojo.setModeOfTransaction("Received");
+						transactionPojo.setPrimaryAccount(toAccount);
+						transactionPojo.setSecondaryAccount(accountNo);
+						transactionPojo.setTransactionType("Credit");
+						transactionPojo.setAmount(amount);
+						transactionPojo.setClosingBalance(toBalance);
+						transactionPojo.setTransactionStatus("Success");
+						tableAccessObj.addTransactionDetails(transactionPojo);
+						modifyAccountPojo = new Account();
+						modifyAccountPojo.setAccountNo(toAccount);
+						modifyAccountPojo.setBalance(toBalance);
+						tableAccessObj.modifyAccountDetails(modifyAccountPojo);
+					}
+				} 
+				else 
+				{
+					throw new UserDefinedException("The Balance is insufficient");
 				}
 			} 
 			else 
 			{
-				throw new UserDefinedException("The Balance is insufficient");
+				throw new UserDefinedException("The Account Number is Invalid");
 			}
-		} 
-		else 
-		{
-			throw new UserDefinedException("The Account Number is Invalid");
 		}
 
 	}
 
-	public List<Long> getAccountsDetails(int userId) throws UserDefinedException 
+	public List<Long> getAccountsDetails(int userId, String status) throws UserDefinedException 
 	{
 		Map<Long, Account> accountMap = new HashMap<>();
 		List<Long> accountList = new ArrayList<>();
-		accountMap = tableAccessObj.getActiveAccount(userId);
+		accountMap = tableAccessObj.getActiveAccount(userId, status);
 		for (long key :  accountMap.keySet()) 
 		{
 			accountList.add(key);
@@ -165,12 +186,21 @@ public class CustomerMethods extends UserMethods {
 		return transactionList;
 	}
 
-	public void requestMessage(int customerId, long accountNo, String message) throws UserDefinedException 
+	public void requestMessage(int customerId, long accountNo, String message) throws UserDefinedException, SQLException 
 	{
-		CustomerRequest customerRequestPojo = new CustomerRequest();
-		customerRequestPojo.setCustomerId(customerId);
-		customerRequestPojo.setAccountNo(accountNo);
-		customerRequestPojo.setRequestMessage(message);
-		tableAccessObj.addCustomerRequest(customerRequestPojo);
+		Map<Integer, CustomerRequest> reqMessageMap = new HashMap<>();
+		reqMessageMap = tableAccessObj.getUserRequest(accountNo, "Pending");
+		if(reqMessageMap.isEmpty())
+		{
+			CustomerRequest customerRequestPojo = new CustomerRequest();
+			customerRequestPojo.setCustomerId(customerId);
+			customerRequestPojo.setAccountNo(accountNo);
+			customerRequestPojo.setRequestMessage(message);
+			tableAccessObj.addCustomerRequest(customerRequestPojo);
+		}
+		else
+		{
+			throw new UserDefinedException("Already Pending Request Available for This Account");
+		}
 	}
 }

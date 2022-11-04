@@ -38,6 +38,8 @@
 		<div><button type="submit" value="Transfer" name="action">Transfer</button></div>
 		<div><button type="submit" value="Transaction Details" name="action">Transaction Details</button></div>
 		<div><button type="submit" value="Change Password" name="action">Change Password</button></div>
+		
+		<div><button type="submit" value="selectCustomerRequest" name="action">Account Request</button></div>
 	</form>
 	
 	<!-- <form action="../servlet" target="_parent">

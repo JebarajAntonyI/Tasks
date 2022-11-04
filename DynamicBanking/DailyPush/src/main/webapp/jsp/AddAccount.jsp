@@ -20,16 +20,29 @@
 		</tr>
 		<tr>
 			<td><label for="accountType">Account Type</label> &nbsp;</td>
-			<td><input type="text" placeholder="Enter type" name="accountType" required></td>
+			<!-- <td><input type="text" placeholder="Enter type" name="accountType" required></td> -->
+			<td><select id = "AccType" name = "accountType" required>
+				<option value="Savings">Savings</option>
+				<option value="Salary">Salary</option>
+				<option value="Current">Current</option>
+				<option value="Loan">Loan</option>
+				<option value="NRI account">NRI account</option>
+			</select></td>
 		</tr>
 		<tr>
 			<td><label for="accountBranch">Account Branch</label> &nbsp;</td>
-			<td><input type="text" placeholder="Enter branch" name="accountBranch" required></td>
+			<!-- <td><input type="text" placeholder="Enter branch" name="accountBranch" required></td> -->
+			<td><select id = "AccBranch" name = "accountBranch" required>
+				<option value="MADURAI">MADURAI</option>
+				<option value="KARAIKUDI">KARAIKUDI</option>
+				<option value="CHENNAI">CHENNAI</option>
+				<option value="TRICHY">TRICHY</option>
+			</select></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<td><label for="ifsc">Account IFSC</label> &nbsp;</td>
 			<td><input type="text" placeholder="Enter IFSC" name="ifsc" required></td>
-		</tr>
+		</tr> -->
 		<tr>
 			<td><label for="balance">Account Balance</label> &nbsp;</td>
 			<td><input type="number" placeholder="Enter balance" name="balance" required></td>

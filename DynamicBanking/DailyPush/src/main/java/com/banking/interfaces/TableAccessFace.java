@@ -55,7 +55,7 @@ public interface TableAccessFace
 
 //	public Map<Long, Account> getAccountDetails(long accountNo) throws SQLException, UserDefinedException;
 
-	public Map<Long, Account> getActiveAccount(int userId) throws UserDefinedException;
+	public 	Map<Long, Account> getActiveAccount(int userId, String status) throws UserDefinedException;
 
 	public Map<Long, Map<Integer, Transaction>> getAllTransactionDetailsMap(int customerId) throws SQLException, UserDefinedException;
 
@@ -64,5 +64,7 @@ public interface TableAccessFace
 	public Map<Integer, Customer> getAllCustomerDetails(Integer... customerId) throws UserDefinedException, SQLException;
 
 	public Map<Integer, CustomerRequest> getRequestMessages(String reqStatus) throws SQLException, UserDefinedException;
+
+	public Map<Integer, CustomerRequest> getUserRequest(long accountNo, String reqStatus) throws SQLException, UserDefinedException;
 
 }

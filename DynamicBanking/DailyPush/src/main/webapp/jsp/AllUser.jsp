@@ -44,10 +44,18 @@
 		<c:forEach var="user" items="${ userList }">
 		<tr>
 			<td>${ user.getUserId() }</td>
+			
+			<%-- <td>
+				<form action="<%= request.getContextPath() %>/servlet" target="adminArea">
+				<input type="submit" value="${ user.getUserId() }" name="id" readonly>
+				<input type="hidden" value="userDetails" name="action">
+				</form>
+			</td> --%>
+			
 			<%-- <td>
 				<form action="<%= request.getContextPath() %>/servlet" target="adminArea">
 				<input value="${ user.getUserId() }" name="id" readonly>
-				<button type="submit" value="customerDetails" name="action"></button>
+				<button type="submit" value="userDetails" name="action"></button>
 				</form>
 			</td> --%>
 			<td>${ user.getName() }</td>
@@ -57,24 +65,6 @@
 			<td>${ user.getUserType() }</td>
 		</tr>
 		</c:forEach>
-		
-		<!-- <tr>
-			<td>2</td>
-			<td>Jose</td>
-			<td>21-02-2000</td>
-			<td>2345678910</td>
-			<td>jose@gmail.com</td>
-			<td>Customer</td>
-		</tr>
-		
-		<tr>
-			<td>3</td>
-			<td>Deva</td>
-			<td>12-07-2001</td>
-			<td>3456789102</td>
-			<td>deva@gmail.com</td>
-			<td>Customer</td>
-		</tr> -->
 	</table>
 
 	<div>

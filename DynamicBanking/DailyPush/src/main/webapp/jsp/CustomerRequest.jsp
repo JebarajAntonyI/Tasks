@@ -1,74 +1,65 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Customer Request</title>
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/style/TableStyle.css">
-<!-- <style type="text/css">
-table
+<title>Deposit</title>
+<style type="text/css">
+.deposit
 {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
+	text-align: left;
 }
-table, th, td
+.button
 {
-	border: 2px solid rgb(46, 52, 54);
-	border-collapse: collapse;
-	text-align: center;
-	padding: 15px;
-}
-th
-{
-	font-size: 18px;
+	text-align: left;
 }
 body
-{
-	background-color: #F5F5DC;
-}
-h1
-{
-	margin-top: 300px;
-}
+	{
+		background-color: #F5F5DC;
+	}
 </style>
- --></head>
+</head>
 <body>
 
+	<form action="<%= request.getContextPath() %>/servlet">
+	<div>
 	<table>
 		<tr>
-			<th>Request Number</th>
-			<th>Customer Id</th>
-			<th>Account Number</th>
-			<th>Request Message</th>
-			<th>Request Status</th>
-		</tr>
-		
-		<tr>
-			<td>1</td>
-			<td>4</td>
-			<td>769878954789</td>
-			<td>Activate My Account</td>
-			<td>
-				<button>Approve</button>
-				<button>Reject</button>
-			</td>
-		</tr>
-		
-		<tr>
-			<td>2</td>
-			<td>5</td>
-			<td>798521365489</td>
-			<td>Activate Account Please</td>
-			<td>
-				<button>Approve</button>
-				<button>Reject</button>
-			</td>
+			<th><label for = "Account No"> Choose Account: </label></th>
+			<td><select id = "Acc No" name = "accountNo">
+					<c:forEach var = "account" items = "${ accountList }" >
+						<option value = "${ account }">${ account }</option>
+					</c:forEach>
+			</select></td>
 		</tr>
 	</table>
-	<div>
-		<button>Save</button>
-		<a href="jsp/AdminHome.jsp"><button>Back</button></a>
 	</div>
-
+	
+	<div>
+		<button type = "submit" value="requestDeactivation" name="action">Request Deactivation</button>
+	</div>
+	</form>
+	
+	<form action="<%= request.getContextPath() %>/servlet">
+	<div>
+	<table>
+		<tr>
+			<th><label for = "Account No"> Choose Account: </label></th>
+			<td><select id = "Acc No" name = "accountNo">
+					<c:forEach var = "account" items = "${ inactiveAccounts }" >
+						<option value = "${ account }">${ account }</option>
+					</c:forEach>
+			</select></td>
+		</tr>
+	</table>
+	</div>
+	
+	<div>
+		<button type = "submit" value="requestActivation" name="action">Request Activation</button>
+	</div>
+	<h3 style = "text-align: center; color: green;">${ message }</h3>
+	</form>
+	
 </body>
 </html>

@@ -11,7 +11,7 @@
 </style>
 </head>
 <body>
-	
+	<form action="<%= request.getContextPath() %>/servlet" target="adminArea">
 	<div class="add">
 	<table>
 		<tr>
@@ -20,7 +20,7 @@
 		</tr>
 		<tr>
 			<td><label for="mobile"><b>Mobile Number</b></label> &nbsp;</td>
-			<td><input type="number" placeholder="Enter Mobile " name="mobile" required></td>
+			<td><input type="tel" placeholder="Enter Mobile " name="mobile" maxlength=10 required></td>
 		</tr>
 		<tr>
 			<td><label for="email"><b>Email ID</b></label> &nbsp;</td>
@@ -39,8 +39,11 @@
 			<td><input type="text" placeholder="Enter pan" name="pan" required></td>
 		</tr>
 		<tr>
-			<td><label for="user"><b>User Type</b></label> &nbsp;</td>
-			<td><input type="text" placeholder="Enter Type" name="user" required></td>
+			<td><label for="userType"><b>User Type</b></label> &nbsp;</td>
+			<!-- <td><input type="text" placeholder="Enter Type" name="userType" required></td> -->
+			<td><select id = "User" name = "userType" required>
+				<option value="Customer">Customer</option>
+			</select></td>
 		</tr>
 		<tr>
 			<td><label for="address"><b>Address</b></label> &nbsp;</td>
@@ -53,9 +56,11 @@
 	</table>
 	</div>
 	<div>
-		<button type="submit">Submit</button>
+		<button type="submit" name="action" value="newCustomer">Submit</button>
 		<a href="jsp/AdminHome.jsp"><button>Back</button></a>
 	</div>
-
+	</form>
+	
+	<h4 style="text-align: center; color: lime;">${ message }</h4>
 </body>
 </html>

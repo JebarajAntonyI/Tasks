@@ -33,7 +33,7 @@ com.banking.pojo.Transaction, com.banking.methods.CustomerMethods" %>
 
 <form action="<%= request.getContextPath() %>/servlet">
 <p><input type="number" name="id" placeholder="Enter User Id"></p>
-	<button type = "submit" name="action" value="accountDetails">Submit</button>
+	<button type = "submit" name="action" value="AdminaccountDetails">Submit</button>
 	<%-- <h4>Choose one Account: </h4>
 	<select id = "Acc No" name = "accountNo">
 			<c:forEach var = "account" items = "${ customerAccounts }" >

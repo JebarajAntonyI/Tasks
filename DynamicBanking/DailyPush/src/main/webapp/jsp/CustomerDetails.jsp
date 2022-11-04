@@ -31,12 +31,12 @@
 		
 		<tr>
 			<th>Name</th>
-			<td><input value="${ customer.getName() }" readonly></td>
+			<td><input value="${ customer.getName() }" name="name" readonly></td>
 		</tr>
 		
 		<tr>
 			<th>DOB</th>
-			<td><input value="${ customer.getDob() }" readonly></td>
+			<td><input value="${ customer.getDob() }" name="dob" readonly></td>
 		</tr>
 		
 		<tr>

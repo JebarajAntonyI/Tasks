@@ -173,17 +173,16 @@ public class TableAccess implements TableAccessFace
 		} 
 		catch (SQLException se) 
 		{
-			throw new UserDefinedException("Can't add Customer Detail", se);
+			throw new UserDefinedException("Already Details Available For This Customer", se);
 		}
 	}
 	
 	@Override
 	public int addCustomerDetails(Customer customerPojo) throws UserDefinedException 
 	{
-		String query = "BEGIN;" + "\nINSERT INTO User_Information (NAME, MOBILE, "
-				+ "EMAIL, PASSWORD, DOB, USER_TYPE) VALUES (?, ?, ?, ?, ?, ?);"
-				+ "\nINSERT INTO Customer_Details (CUSTOMER_ID, AADHAR_NO, PAN_NO, "
-				+ "ADDRESS) VALUES (LAST_INSERT_ID(), ?, ?, ?);" + "\nCOMMIT;";
+		int customerId = 0;
+		String query = "INSERT INTO User_Information (NAME, MOBILE, "
+				+ "EMAIL, PASSWORD, DOB, USER_TYPE) VALUES (?, ?, ?, ?, ?, ?); ";
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) 
@@ -194,24 +193,35 @@ public class TableAccess implements TableAccessFace
 				statement.setString(4, customerPojo.getPassword());
 				statement.setString(5, customerPojo.getDob());
 				statement.setString(6, customerPojo.getUserType());
-				statement.setLong(7, customerPojo.getAadhar());
-				statement.setString(8, customerPojo.getPan());
-				statement.setString(9, customerPojo.getAddress());
 				statement.executeUpdate();
 				try (ResultSet result = statement.getGeneratedKeys()) 
 				{
-					while (result.next())
+					if (result.next())
 					{
-						return result.getInt(1);
+						customerId =  result.getInt(1);
+					}
+					else
+					{
+						throw new UserDefinedException("Syntax Error in adding User Customer Detail");
 					}
 				}
+			}
+			query = "INSERT INTO Customer_Details (CUSTOMER_ID, AADHAR_NO, PAN_NO, "
+					+ "ADDRESS) VALUES (?, ?, ?, ?); ";
+			try (PreparedStatement statement = connect.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) 
+			{
+				statement.setInt(1, customerId);
+				statement.setLong(2, customerPojo.getAadhar());
+				statement.setString(3, customerPojo.getPan());
+				statement.setString(4, customerPojo.getAddress());
+				statement.executeUpdate();
 			}
 		} 
 		catch (SQLException se) 
 		{
 			throw new UserDefinedException("Syntax Error in adding User Customer Detail", se);
 		}
-		return 0;
+		return customerId;
 	}
 	
 	@Override
@@ -302,7 +312,7 @@ public class TableAccess implements TableAccessFace
 			}
 			if (customerState != null) 
 			{
-				column = "CUSTOMER_STATE = '" + customerState + "'";
+				column = "CUSTOMER_STATUS = '" + customerState + "'";
 				buildQuery = getQuery(buildQuery, column);
 			}
 			index = buildQuery.lastIndexOf(",");
@@ -694,7 +704,7 @@ public class TableAccess implements TableAccessFace
 					customerPojo.setEmail(result.getString("EMAIL"));
 					customerPojo.setDob(result.getString("DOB"));
 					customerPojo.setUserType(result.getString("USER_TYPE"));
-					customerPojo.setCustomerStatus(result.getString("CUSTOMER_STATE"));
+					customerPojo.setCustomerStatus(result.getString("CUSTOMER_STATUS"));
 					customerPojo.setOnlineStatus(result.getString("ONLINE_STATUS"));
 					return customerPojo;
 				}
@@ -824,7 +834,7 @@ public class TableAccess implements TableAccessFace
 		} 
 		catch (SQLException se) 
 		{
-			throw new UserDefinedException("No Such Column Available in Customer Details", se);
+			throw new UserDefinedException("Account Number is Invalid", se);
 		}
 	}
 
@@ -865,14 +875,15 @@ public class TableAccess implements TableAccessFace
 //	}
 
 	@Override
-	public Map<Long, Account> getActiveAccount(int userId) throws UserDefinedException 
+	public Map<Long, Account> getActiveAccount(int userId, String status) throws UserDefinedException 
 	{
-		String query = "SELECT * FROM Account_Details WHERE CUSTOMER_ID = ? And ACCOUNT_STATUS = 'ACTIVE'";
+		String query = "SELECT * FROM Account_Details WHERE CUSTOMER_ID = ? And ACCOUNT_STATUS = ?";
 		Map<Long, Account> accountMap = new HashMap<>();
 		try (Connection connect = getConnection()) {
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
 				statement.setInt(1, userId);
+				statement.setString(2, status);
 				try (ResultSet result = statement.executeQuery()) 
 				{
 					while (result.next()) 
@@ -1012,7 +1023,7 @@ public class TableAccess implements TableAccessFace
 						customerPojo.setEmail(result.getString("EMAIL"));
 						customerPojo.setDob(result.getString("DOB"));
 						customerPojo.setUserType(result.getString("USER_TYPE"));
-						customerPojo.setCustomerStatus(result.getString("CUSTOMER_STATE"));
+						customerPojo.setCustomerStatus(result.getString("CUSTOMER_STATUS"));
 						customerPojo.setOnlineStatus(result.getString("ONLINE_STATUS"));
 						customersMap.put(customerPojo.getCustomerId(), customerPojo);
 					}
@@ -1084,6 +1095,39 @@ public class TableAccess implements TableAccessFace
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
 				statement.setString(1, reqStatus);
+				try (ResultSet result = statement.executeQuery()) 
+				{
+					while (result.next()) 
+					{
+						CustomerRequest reqMessagePojo = new CustomerRequest();
+						reqMessagePojo.setRequestNo(result.getInt("REQUEST_NO"));
+						reqMessagePojo.setCustomerId(result.getInt("CUSTOMER_ID"));
+						reqMessagePojo.setAccountNo(result.getLong("ACCOUNT_NO"));
+						reqMessagePojo.setRequestMessage(result.getString("REQUEST_MESSAGE"));
+						reqMessagePojo.setRequestStatus(result.getString("REQUEST_STATUS"));
+						reqMessageMap.put(reqMessagePojo.getRequestNo(), reqMessagePojo);
+					}
+				}
+			} 
+			catch (SQLException se) 
+			{
+				throw new UserDefinedException("No Such Status Available", se);
+			}
+			return reqMessageMap;
+		}
+	}
+	
+	@Override
+	public Map<Integer, CustomerRequest> getUserRequest(long accountNo, String reqStatus) throws SQLException, UserDefinedException 
+	{
+		String query = "SELECT * FROM Customer_Request WHERE ACCOUNT_NO = ? AND REQUEST_STATUS = ?";
+		Map<Integer, CustomerRequest> reqMessageMap = new HashMap<>();
+		try (Connection connect = getConnection()) 
+		{
+			try (PreparedStatement statement = connect.prepareStatement(query)) 
+			{
+				statement.setLong(1, accountNo);
+				statement.setString(2, reqStatus);
 				try (ResultSet result = statement.executeQuery()) 
 				{
 					while (result.next()) 

@@ -15,13 +15,16 @@
 <body>
 
 	<h4 style="text-align: center; color: green;">${ message }</h4>
-
+<%-- 
 <h2>User Details</h2>
 
-<form action="<%= request.getContextPath() %>/servlet">
+<form action="<%= request.getContextPath() %>/servlet" target="userArea">
 <p><input type="number" name="id" placeholder="Enter User Id" required></p>
 	<button type = "submit" name="action" value="userDetails">Submit</button>
 </form>
+
+<iframe width="78%" height="825"
+		name="userArea"></iframe> --%>
 
 <form action="<%= request.getContextPath() %>/servlet">
 	<table style = "width: 25%">

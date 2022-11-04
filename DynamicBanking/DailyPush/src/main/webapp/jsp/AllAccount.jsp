@@ -47,11 +47,19 @@
 			<td>${ account.getCustomerId() }</td>
 			<%-- <td>
 				<form action="<%= request.getContextPath() %>/servlet" target="adminArea">
-				<input value="${ account.getCustomerId() }" name="id" readonly>
-				<button type="submit" value="accountDetails" name="action"></button>
+				<input type="submit" value="${ account.getCustomerId() }" name="id" readonly>
+				<input type="hidden" value="accountDetails" name="action">
 				</form>
 			</td> --%>
+			
 			<td>${ account.getAccountNo() }</td>
+			<%-- <td>
+				<form action="<%= request.getContextPath() %>/servlet" target="adminArea">
+				<input type="submit" value="${ account.getAccountNo() }" name="accountNo" readonly>
+				<input type="hidden" value="getAccount" name="action">
+				</form>
+			</td> --%>
+			
 			<td>${ account.getAccountType() }</td>
 			<td>${ account.getAccountBranch() }</td>
 			<td>${ account.getIfsc() }</td>

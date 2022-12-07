@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Grandson</title>
+</head>
+<body>
+
+	<div class="first">
+		Enter How Many Pairs <input type="number" id="nos" name="no" required
+			value="" min="1" max="10">
+		<button onclick="addPairs()">Go</button>
+	</div>
+	<br>
+	<div id="search"></div>
+	<!-- <div>
+		Enter Name <input type="text" id="name" name="name" required value="">
+		<button onclick="myFunction()">Search</button>
+	</div> -->
+	
+	<p id="noMessage" style="color: red;"> </p>
+
+	<p id="first"></p>
+	<p id="second"></p>
+	
+	<div id="pairBox"></div>
+
+	<script type="text/javascript">
+
+		var pairs;
+		var relation = [];
+
+		function addPairs() {
+			pairs = document.getElementById("nos").value;
+
+			const firstDiv = document.getElementsByClassName("first");
+
+			const div = document.createElement("div");
+			div.setAttribute("class", "divClass");
+			div.setAttribute("id", "divId");
+
+			const table = document.createElement("table");
+			table.setAttribute("class", "table");
+			const tbody = document.createElement("tbody");
+			for (let i = 1; i <= pairs; i++) {
+				const tr = document.createElement("tr");
+				tr.setAttribute("class", "trClass");
+				tr.setAttribute("id", "trId" + i);
+
+				for (let j = 1; j <= 2; j++) {
+					const td = document.createElement("td");
+					const input = document.createElement("input");
+					input.setAttribute("type", "text");
+					input.required = true;
+					td.setAttribute("class", "tdClass");
+
+					if (j % 2 == 1) {
+						input.setAttribute("id", ("parent" + i));
+						input.setAttribute("placeholder", "parent");
+						input.setAttribute("class", "parents");
+
+					} else {
+						input.setAttribute("id", ("child" + i));
+						input.setAttribute("placeholder", "child");
+						input.setAttribute("class", "children");
+					}
+					td.appendChild(input);
+					tr.appendChild(td);
+				}
+				tbody.appendChild(tr);
+			}
+			table.appendChild(tbody);
+			div.appendChild(table);
+			firstDiv[0].appendChild(div);
+			const addButton = document.createElement("button");
+			firstDiv[0].append(addButton);
+			addButton.setAttribute("id", "addDetails");
+			addButton.setAttribute("type", "button");
+			addButton.setAttribute("onclick", "addDetails()");
+			addButton.innerHTML = "Add";
+		}
+
+		function addDetails() {
+			for (let i = 1; i <= pairs; i++) {
+				let parents = document.getElementById(("parent" + i)).value;
+				let children = document.getElementById(("child" + i)).value;
+
+				relation.push({
+					parent : parents,
+					child : children
+				});
+			}
+			
+			const pairDiv = document.getElementById("search");
+
+			const div = document.createElement("div");
+			div.setAttribute("class", "last");
+			div.setAttribute("id", "lastId");
+			const inpt = document.createElement("input");
+			inpt.type = "text";
+			inpt.name = "name";
+			inpt.id = "name";
+			inpt.required = true;
+			const but = document.createElement("button");
+			but.innerHTML = "Find";
+			but.setAttribute("onclick", "myFunction()");
+			pairDiv.append(div);
+			div.appendChild(inpt);
+			div.append(but);
+		}
+
+		function myFunction() {
+
+			let son = [];
+			let notUniqueSon = [];
+			let grandson = [];
+			let name = document.getElementById("name").value;
+
+			for (let i = 0; i < relation.length; i++) {
+				if (relation[i].parent == name) 
+				{
+					notUniqueSon.push(relation[i].child);
+				}
+				son = [...new Set(notUniqueSon)];
+			}
+
+			for (let j = 0; j < son.length; j++) {
+				for (let i = 0; i < relation.length; i++) {
+					if (son[j] == relation[i].parent) {
+						if (son[j] != relation[i].child)
+						{
+							grandson.push(relation[i].child);
+						}
+					}
+				}
+			}
+
+			if (grandson.length > 0) {
+				let length = grandson.length;
+				let second = document.getElementById("second");
+				document.getElementById("noMessage").innerHTML = "";
+				document.getElementById("first").innerHTML = name + " has " + length + " Number of GrandChildren";
+				document.getElementById("second").innerHTML = "Their Names:";
+				const para0 = document.createElement("p");
+				para0.id = "p0";
+				second.append(para0);
+				for(let i=0; i<length; i++)
+				{
+					const para = document.createElement("p");
+					para.id = "p" + (i+1);
+					let p = document.getElementById("p" + (i));
+					p.append(para);
+					
+					document.getElementById("p" + (i+1)).innerHTML = (i+1) + ") " + grandson[i];
+				}
+
+				/* document.write("Number of GrandSon = " + grandson.length);
+				document.write("<br>Names = " + grandson); */
+			} else {
+				document.getElementById("noMessage").innerHTML = "No Grand Children";
+				document.getElementById("first").innerHTML = "";
+				document.getElementById("second").innerHTML = "";
+			}
+		}
+	</script>
+
+
+</body>
+</html>

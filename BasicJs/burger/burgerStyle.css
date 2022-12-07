@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+body
+{
+	background-image: url("images/burgerBack.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+#welcome
+{
+	text-align: center;
+	color: white;
+	font-size: 60px;
+}
+
+#enter
+{
+	margin-left: 45%;
+	margin-top: 10%;
+	
+	width: 10%;
+	height: 70px;
+	font-size: 20px;
+}
+
+#welcomeDiv button
+{
+	margin-left: 15%;
+	margin-top: 10%;
+	
+	width: 10%;
+	height: 40px;
+	font-size: 15px;
+}
+
+.tables
+{
+	margin-left: auto;
+	margin-right: auto;
+	
+	width: 500px;
+	/* font-size: 50px; */
+}
+
+th
+{
+	text-align: left;
+	font-size: 30px;
+	color: aqua;
+}
+
+td
+{
+	text-align: left;
+	font-size: 20px;
+	
+	color: white;
+}
+
+#burgerType button
+{
+	margin-left: 15%;
+	margin-top: 2%;
+	
+	width: 10%;
+	height: 40px;
+	font-size: 15px;
+}
+
+input
+{
+	margin-left: 38%;
+	margin-top: 0px;
+	
+	font-size: 25px;
+	color: white;
+}
+
+h3
+{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	width: 40%;
+	
+	font-size: 30px;
+	color: white;
+	
+	background-color: maroon;
+}
+
+label
+{
+	font-size: 25px;
+	font-weight: 500px;
+	color: white;
+	backdrop-filter: blur(5px);
+}
+
+#submit
+{
+	margin-top: 3%;
+	margin-left: 45%;
+	
+	width: 10%;
+	height: 40px;
+	font-size: 15px;
+}
+
+.crustDiv
+{
+	background-color: black;
+}
+
+.ranBtn
+{
+	margin-top: 10%;
+	margin-right: 5%;
+	
+	width: 40%;
+	height: 40px;
+	font-size: 15px;
+}
+
+.finalBtn1
+{
+	margin-left: 35%;
+	margin-top: 1%;
+	
+	width: 10%;
+	height: 40px;
+	font-size: 15px;
+}
+
+.finalBtn2
+{
+	margin-left: 10%;
+	margin-top: 1%;
+	
+	width: 10%;
+	height: 40px;
+	font-size: 15px;
+}
+
+p
+{
+	text-align: center;
+}
+
+.homeBtn
+{
+	margin-top: 3%;
+	margin-left: 45%;
+	
+	width: 40%;
+	height: 40px;
+	font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

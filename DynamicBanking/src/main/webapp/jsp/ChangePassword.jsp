@@ -3,43 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Change Password</title>
-<style type="text/css">
-	.pass
-	{
-		text-align: center;
-	}
-	body
-	{
-		background-color: #F5F5DC;
-	}
-	button
-	{
-		text-align: center;
-	}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 </head>
 <body>
-	
-	<div class = "pass">
-		<table>
-			<tr>
-				<td><label for="oldPassword"><b>Old Password</b></label></td>
-				<td><input type="password" placeholder="Enter Old Password" name="oldPassword"></td>
-			</tr>
-			<tr>
-				<td><label for="newPassword"><b>New Password</b></label></td>
-				<td><input type="password" placeholder="Enter New Password" name="newPassword"></td>
-			</tr>
-			<tr>
-				<td><label for="confirmPassword"><b>Confirm Password</b></label></td>
-				<td><input type="password" placeholder="Re Enter Password" name="confirmPassword"></td>
-			</tr>
-		</table>
-	</div>
-	
-	<div style="text-align: left;">
-		<button type="submit">Submit</button>
-	</div>
-	
+	<h3 style="text-align: center; color: purple;">${ message }</h3>
+	<form action="<%=request.getContextPath()%>/servlet" method="post">
+		<div class="card w-40">
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2"
+					type="text" placeholder=" " name="oldPassword" required><span
+					class="spanClass2">Old Password<span style="color: red;">
+							*</span></span></label>
+			</div>
+
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2"
+					type="text" placeholder=" " name="newPassword" required><span
+					class="spanClass2">New Password<span style="color: red;">
+							*</span></span></label>
+			</div>
+
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2"
+					type="password" placeholder=" " name="confirmPassword" required><span
+					class="spanClass2">Re-Enter Password<span
+						style="color: red;"> *</span></span></label>
+			</div>
+
+			<div style="text-align: center">
+				<button class="accept-button button" type="submit"
+					value="passChange" name="action">Submit</button>
+			</div>
+
+		</div>
+	</form>
 </body>
 </html>

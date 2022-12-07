@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Page</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="customerJs.js"></script>
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		var obj = {
+			button :"getAccountNo"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var json = JSON.parse(response);
+				var list = json.list;
+				if(list)
+				{
+					for(i in list)
+					{
+						$("#accNo").append(
+							"<option>"+list[i]+"</option>"
+						);
+					}
+				
+					var obj = {button:"showTransaction", accountNo:list[0], days:7};
+					var myJson = JSON.stringify(obj);
+					
+					$.ajax({
+						type:"POST",
+						url:"../servlet",
+						data:myJson,
+						success:function(response)
+						{
+							var map = JSON.parse(response);
+							$(".trans").remove();
+							for(i in map)
+								{
+								let time = new Date(map[i].transactionTime);
+								let secondaryAccount = map[i].secondaryAccount;
+								if(secondaryAccount == 0)
+								{
+									secondaryAccount = "-";
+								}
+									$("#transactionTable").append(
+										"<tr class='trans'><td>"+map[i].transactionId+"</td>"
+										+ "<td>"+map[i].primaryAccount+"</td>"
+										+ "<td>"+secondaryAccount+"</td>"
+										+ "<td>"+time.toLocaleString()+"</td>"
+										+ "<td>"+map[i].modeOfTransaction+"</td>"
+										+ "<td>"+map[i].transactionType+"</td>"
+										+ "<td>"+map[i].amount+"</td>"
+										+ "<td>"+map[i].closingBalance+"</td>"
+										+ "<td>"+map[i].transactionStatus+"</td></tr>"
+									);
+								}
+						}
+					});
+				}
+				else
+				{
+					$("#redMessage").html("No Details Available to Display");
+				}
+			}
+		});
+})
+
+</script>
+<body>
+	<header class="header">
+		<div class="sameGrid positionf">
+
+			<select style="margin-left: 10%; width: 80%; margin-top: 7%;"
+				class="inputStyle" id="accNo" name="accountNo" required>
+			</select> <select style="margin-left: 7%; width: 88%; margin-top: 10%;"
+				class="inputStyle" id="days" name="days" required>
+				<option value="7">7 Days</option>
+				<option value="15">15 Days</option>
+				<option value="30">30 Days</option>
+			</select>
+			<button style="margin-left: 10%; margin-top: 10%;"
+				class="button accept-button" type="submit" name="action"
+				value="showTransaction" onclick="showTransaction()">Search</button>
+		</div>
+	</header>
+	<div style="overflow: auto; height: 78vh; margin-top: 3%;"
+		class="tables">
+
+
+		<table id="transactionTable">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>ID</th>
+					<th>Primary Account</th>
+					<th>Secondary Account</th>
+					<th>Time</th>
+					<th>Mode</th>
+					<th>Type</th>
+					<th>Amount</th>
+					<th>Closing Balance</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+	<h3 style="text-align: center; color: red;" id="redMessage"></h3>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

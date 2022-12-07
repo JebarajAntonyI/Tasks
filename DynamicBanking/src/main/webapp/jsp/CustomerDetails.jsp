@@ -1,59 +1,77 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<%@ page import="com.banking.pojo.Customer"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Customer Details</title>
-<style type="text/css">
-	body
-	{
-		background-color: #F5F5DC;
-	}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 </head>
 <body>
+	<h4 style="color: red;">${ redMessage }</h4>
+	<c:if test="${ redMessage == null }">
+	<header class="header">
+		<h2 style="text-align: left">Customer Details</h2>
+	</header>
+	<h4 style="text-align: center; color: green;">${ message }</h4>
 
-<h2>Customer Details</h2>
+	<form action="<%=request.getContextPath()%>/servlet">
+		<div style="margin-top: 0px; padding-top: 0px; padding-bottom: 0px;"
+			class="card w-50">
+			<table class="formTable">
+				<tr>
+					<td class="w-25">Customer Id</td>
+					<td><b><input class="inputStyle w-100"
+							value="${ customer.getCustomerId() }" name="id" readonly></b></td>
+				</tr>
 
-<table style = "width: 25%">
-	<tr>
-		<td><b>Customer Id: </b></td>
-		<td>1</td>
-	</tr>
-	
-	<tr>
-		<td><b>Name: </b></td>
-		<td>Jeba</td>
-	</tr>
-	
-	<tr>
-		<td><b>DOB: </b></td>
-		<td>18-08-1998</td>
-	</tr>
-	
-	<tr>
-		<td><b>Mobile: </b></td>
-		<td><input type="number" value="1234567890" maxlength="10"></td>
-	</tr>
-	
-	<tr>
-		<td><b>Email: </b></td>
-		<td><input type="email" value="jeba@zohocorp.com"></td>
-	</tr>
-	
-	<tr>
-		<td><b>Aadhar Number: </b></td>
-		<td>469875214568</td>
-	</tr>
-	
-	<tr>
-		<td><b>PAN: </b></td>
-		<td>PANJA0008I</td>
-	</tr>
-</table>
+				<tr>
+					<td class="w-25">Name</td>
+					<td><b><input class="inputStyle w-100"
+							value="${ customer.getName() }" name="name" readonly></b></td>
+				</tr>
 
-<div>
-	<button>Save</button>
-</div>
+				<tr>
+					<td class="w-25">DOB</td>
+					<td><b><input class="inputStyle w-100" type="date"
+							value="${ customer.getDob() }" name="dob" readonly></b></td>
+				</tr>
 
+				<tr>
+					<td class="w-25">Mobile <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100" type="tel" pattern="^[6-9][0-9]{9}"
+							value="${ customer.getMobile() }" maxlength="10" name="mobile"></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">Email <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100" type="email" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+$"
+							value="${ customer.getEmail() }" name="mail"></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">Aadhar Number</td>
+					<td><b><input class="inputStyle w-100"
+							value="${ customer.getAadhar() }" readonly></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">PAN</td>
+					<td><b><input class="inputStyle w-100"
+							value="${ customer.getPan() }" readonly></b></td>
+				</tr>
+
+				<tr>
+					<td><label></label></td>
+					<td><button class="accept-button button" type="submit"
+							name="action" value="modifyUserDetails">Save</button></td>
+				</tr>
+			</table>
+		</div>
+	</form>
+	</c:if>
 </body>
 </html>

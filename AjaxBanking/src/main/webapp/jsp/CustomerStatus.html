@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Deposit</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+<body>
+	<header class="header">
+		<div class="positionf">
+			<h2 style="text-align: left; margin-left: 1%; margin-top: 0.5%;">Block/Un-Block Customer</h2>
+		</div>
+	</header>
+		<div style="margin-top: 15%;" class="card">
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2"
+					type="tel" placeholder=" " id="cid" name="cid" min=1 required><span
+					class="spanClass2">Customer ID<span style="color: red;"> *</span></span></label>
+			</div>
+			
+			<div>
+				<label class="labelClass2"><select class="inputStyle w-77"
+					id="state" name="status" required>
+						<option value="">Select Status</option>
+							<option value="ACTIVE">ACTIVATE</option>
+							<option value="INACTIVE">DE-ACTIVATE</option>
+				</select></label>
+			</div>
+
+			<div style="text-align: center">
+				<button class="accept-button button" type="submit"
+					value="modifyCustomerStatus" onclick="modifyCustomerStatus()" name="action">Submit</button>
+			</div>
+
+		</div>
+		<h3 style="text-align: center; color: green;" id="message"></h3>
+		<h3 style="text-align: center; color: red;" id="redMessage"></h3>
+</body>
+</html>

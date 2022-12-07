@@ -3,38 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Admin Home</title>
-<link rel="stylesheet" type="text/css" href="style/HomeStyle.css">
-</head>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 <body>
 
-	<h1 style="text-align: center">Welcome Admin</h1>
-	
-	<table>
-		<tr>
-			<th>Customer Name</th>
-			<th>Account Number</th>
-			<th>Balance</th>
-		</tr>
-		
-		<tr>
-			<td>Jeba</td>
-			<td><a href="AccountDetails.jsp">712365478965</a></td>
-			<td>98500</td>
-		</tr>
-		
-		<tr>
-			<td>Jose</td>
-			<td>769878954516</td>
-			<td>200000</td>
-		</tr>
-			
-		<tr>
-			<td>Deva</td>
-			<td>712563987456</td>
-			<td>300000</td>
-		</tr>
-			
-	</table>
+	<div>
+		<!-- <h3 style="text-align: center; padding-top: 40px;">Profile</h3> -->
+	</div>
+	<div class="tables bgNone">
+		<table style="margin-top: 15%; width: 30%" class="formTable">
+			<tr>
+				<th style="text-align: left;">Customer Id</th>
+				<td><input class="inputStyle bgNone"
+					value="${ userPojo.getUserId() }" name="id" readonly></td>
+			</tr>
+
+			<tr>
+				<th style="text-align: left;">Name</th>
+				<td><input class="inputStyle bgNone"
+					value="${ userPojo.getName() }" name="name" readonly></td>
+			</tr>
+
+			<tr>
+				<th style="text-align: left;">DOB</th>
+				<td><input class="inputStyle bgNone" type="date"
+					value="${ userPojo.getDob() }" name="dob" readonly></td>
+			</tr>
+
+			<tr>
+				<th style="text-align: left;">Mobile</th>
+				<td><input class="inputStyle bgNone" type="tel"
+					value="${ userPojo.getMobile() }" maxlength="10" name="mobile"
+					readonly></td>
+			</tr>
+
+			<tr>
+				<th style="text-align: left;">Email</th>
+				<td><input class="inputStyle bgNone" type="email"
+					value="${ userPojo.getEmail() }" name="mail" readonly></td>
+			</tr>
+		</table>
+	</div>
 
 </body>
 </html>

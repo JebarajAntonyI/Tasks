@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.banking.methods.AdminMethods;
+import com.banking.methods.BankUtil;
 import com.banking.pojo.Account;
 import com.banking.pojo.Customer;
 import com.banking.pojo.CustomerRequest;
@@ -29,7 +30,7 @@ public class AdminConnect
 	
 	private AdminMethods adminMethods = new AdminMethods();
 	private CustomerConnect customerConnect = new CustomerConnect();
-	private GetInput getInput = new GetInput();
+	private BankUtil getInput = new BankUtil();
 
 	public void admin(int userId) throws SQLException, UserDefinedException
 	{

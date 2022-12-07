@@ -179,7 +179,7 @@ public class AdminMethods extends UserMethods
 		return reqMessageMap;
 	}
 	
-	public void createNewCustomerUser(Customer customerPojo) throws UserDefinedException
+	public void createNewCustomer(Customer customerPojo) throws UserDefinedException
 	{
 		InputValidityCheck.checkNull(customerPojo);
 		tableAccessObj.addCustomerDetails(customerPojo);
@@ -194,7 +194,7 @@ public class AdminMethods extends UserMethods
 	public void addCustomerDetailsOnly(Customer customerPojo) throws UserDefinedException
 	{
 		InputValidityCheck.checkNull(customerPojo);
-		tableAccessObj.addCustomerDetails(customerPojo);
+		tableAccessObj.addCustomerDetailsOnly(customerPojo);
 	}
 	
 	public void addAccountDetails(Account accountPojo) throws UserDefinedException

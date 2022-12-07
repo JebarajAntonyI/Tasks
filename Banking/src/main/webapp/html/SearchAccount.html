@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Page</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+</head>
+<body>
+	<div class="positionf" style="height: 7%;">
+		<div style="margin-top: 1%;">
+			<input id="acNo" style="width: 14%;" class="userIdInput"
+				type="number" name="id" min="1" max="1300000000000"
+				placeholder="Customer Id or Account Number" required>
+			<button style="margin-left: 0.9%; width: 35%;"
+				class="button tab-button" type="submit" name="action" id="accSearch"
+				value="AdminaccountDetails" onclick="accountSearch()">Search</button>
+			<button onclick="allAccount()" style="width: 35%" id="allAcc"
+				class="button tab-button" type="submit" value="View All Account"
+				name="action">All Account</button>
+		</div>
+	</div>
+	<h4 style="text-align: center; margin-top: 10%; color: green;"
+		id="message"></h4>
+	<h4 style="text-align: center; margin-top: 10%; color: red;"
+		id="redMessage"></h4>
+
+	<div
+		style="overflow: auto; border: none; margin-top: 3%; width: 100%; height: 82vh;"
+		id="userArea"></div>
+
+</body>
+</html>

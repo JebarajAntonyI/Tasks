@@ -1,0 +1,7 @@
+#Properties stored
+#Mon Oct 10 18:41:01 IST 2022
+A=1
+E=5
+D=4
+C=3
+B=2

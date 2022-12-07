@@ -1,51 +1,55 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Account Details</title>
-<style type="text/css">
-	button
-	{
-		text-align: center;
-	}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 </head>
 <body>
-
-	<table style = "width:20%">
-		<tr>
-			<td><b>Customer ID: </b></td>
-			<td>1</td>
-		</tr>
-		
-		<tr>
-			<td><b>Account No: </b></td>
-			<td>712365478965</td>
-		</tr>
-		
-		<tr>
-			<td><b>Account Type: </b></td>
-			<td>Savings</td>
-		</tr>
-		
-		<tr>
-			<td><b>Account Branch: </b></td>
-			<td>MaduraiMain</td>
-		</tr>
-		
-		<tr>
-			<td><b>IFSC: </b></td>
-			<td>ZIUB000008</td>
-		</tr>
-		
-		<tr>
-			<td><b>Account Balance: </b></td>
-			<td>98500</td>
-		</tr>
-	</table>
+	<h4 style="color: red;">${ message }</h4>
+	<c:if test="${ message == null }">
+	<header class="header">
+	<div class="positionf t-l-0">
+	<h2 style="text-align: left; margin-left: 1%; margin-top: 1%;">Account Details</h2>
+	</div>
+	</header>
 	
-	<a href = "CustomerHome.html"><button>Customer Page</button></a>
-	<a href = "AdminHome.html"><button>Admin Page</button></a>
+	<div class="tables">
+		<table>
+			<tr style="background-color: #283655; color: white;">
+				<th>Account No</th>
+				<th>Type</th>
+				<th>Branch</th>
+				<th>IFSC</th>
+				<th>Balance</th>
+				<th>Status</th>
+			</tr>
+			<c:forEach var="account" items="${ accountMap }">
+				<tr>
+					<td>${ account.key }</td>
+					<td>${ account.value.getAccountType() }</td>
+					<td>${ account.value.getAccountBranch() }</td>
+					<td>${ account.value.getIfsc() }</td>
+					<td>${ account.value.getBalance() }</td>
+					<td>${ account.value.getAccountStatus() }</td>
+				</tr>
+			</c:forEach>
+
+			<c:forEach var="account" items="${ account }">
+				<tr>
+					<td>${ account.value.getAccountNo() }</td>
+					<td>${ account.value.getAccountType() }</td>
+					<td>${ account.value.getAccountBranch() }</td>
+					<td>${ account.value.getIfsc() }</td>
+					<td>${ account.value.getBalance() }</td>
+					<td>${ account.value.getAccountStatus() }</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
+	</c:if>
 </body>
 </html>

@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All User Table</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"View All User"
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			for(i in map)
+			{
+				var val = map[i];
+				
+					$("#userTable").append(
+						"<tr>"
+						+"<td>"+val.userId+"</td>"
+						+"<td>"+val.name+"</td>"
+						+"<td>"+val.dob+"</td>"
+						+"<td>"+val.mobile+"</td>"
+						+"<td>"+val.email+"</td>"
+						+"<td>"+val.userType+"</td>"
+						+"<td>"+val.onlineStatus+"</td>"
+						+"</tr>"
+					);
+			}
+		}
+	});
+});
+
+</script>
+
+<style type="text/css">
+/* .tables th {
+	font-size: 18px;
+	top: 2%;
+	background-color: #283655;
+	color: white;
+} */
+</style>
+
+</head>
+<body>
+	<!-- <header>
+		<h2 style="text-align: left">All Users</h2>
+	</header> -->
+	
+	<div style="overflow: auto; height: 72vh; margin-top: 3%;" class="tables">
+		<table id="userTable">
+			<thead style="position: sticky; top: 1px;">
+			<tr style="background-color: #283655; color: white;">
+				<th>User ID</th>
+				<th>Name</th>
+				<th>DOB</th>
+				<th>Mobile</th>
+				<th>Email</th>
+				<th>User Type</th>
+				<th>Online Status</th>
+			</tr>
+			</thead>
+
+				<!-- <tr>
+					<td>
+						<form action="<%=request.getContextPath()%>/servlet"
+							target="adminArea">
+							<input class="userId" type="submit" value="${ user.getUserId() }"
+								name="id" readonly> <input type="hidden"
+								value="userDetails" name="action">
+						</form>
+					</td>
+					<td>${ user.getName() }</td>
+					<td>${ user.getDob() }</td>
+					<td>${ user.getMobile() }</td>
+					<td>${ user.getEmail() }</td>
+					<td>${ user.getUserType() }</td>
+					<td>${ user.getOnlineStatus() }</td>
+				</tr> -->
+		</table>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

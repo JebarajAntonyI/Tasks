@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Details</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+
+</head>
+<body>
+
+	<div class="positionf" style="height: 7%;">
+		<input class="userIdInput w-10" type="number" name="id" min="1"
+			max="100000" placeholder="Enter User ID" id="id" required>
+		<button class="button tab-button  w-15" type="submit" name="action"
+			value="userDetails" id="uDetail" onclick="userDetails()">User
+			Details</button>
+		<button class="button tab-button  w-15" type="submit" name="action"
+			value="accountDetails" id="accDetail" onclick="accountDetails()">Account
+			Details</button>
+		<button class="button tab-button w-15" type="submit"
+			value="customerDetails" id="documents" name="action"
+			onclick="customerDetails()">Customer Documents</button>
+		<button class="button tab-button w-15" type="submit" name="action"
+			value="getAccountList" id="transDetail" onclick="transaction()">Transaction
+			Details</button>
+		<button style="margin-top: 1%; margin-left: 0%;"
+			class="button tab-button w-15" id="allUse" type="submit"
+			value="View All User" name="action" onclick="allUsers()">All
+			User</button>
+	</div>
+
+	<h4 style="text-align: center; margin-top: 10%; color: green;"
+		id="message"></h4>
+	<h4 style="text-align: center; margin-top: 10%; color: red;"
+		id="redMessage"></h4>
+
+	<div
+		style="overflow: hidden; border: none; margin-top: 3%; width: 100%; height: 84vh;"
+		id="userArea"></div>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Frame</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#customerArea").load("CustomerHome.html");
+		var obj = {
+			button : "menuName"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type : "POST",
+			url : "../servlet",
+			data : myJson,
+			success : function(response) {
+				var json = JSON.parse(response);
+				var nam = json["name"];
+				$("#nam").append(" " + nam);
+			}
+		});
+	});
+</script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../style/Menu.css">
+<style type="text/css">
+body {
+	overflow: hidden;
+	background-color: #eaf6f400;
+}
+
+.mainheader {
+	background-color: #204e7d;
+	position: relative;
+	width: 100%;
+	height: 92px;
+}
+
+.mainheader>div {
+	position: absolute;
+}
+
+.sidebar {
+	width: 14%;
+	height: 100%;
+	background-color: #D0E1F9;
+	position: fixed;
+}
+
+.menu {
+	width: 86%;
+	height: 100%;
+	background-color: #e0e5fc00;
+	overflow: hidden;
+}
+
+.adminMenuBody {
+	display: flex;
+	flex-direction: row;
+}
+
+.mainContent {
+	margin-left: 14%;
+}
+
+.dropbtn {
+	position: static;
+	overflow: scroll;
+}
+
+.dropdown {
+	position: absolute;
+	display: inline;
+	right: 2%;
+	top: 20px;
+	z-index: 1;
+}
+
+.dropdown-content {
+	display: none;
+	position: inherit;
+	background-color: #204e7d;
+	right: 0px;
+	padding-top: 20px;
+}
+
+.dropdown-content button {
+	border: none;
+	background-color: #204e7d;
+	color: white;
+	padding: 12px 16px;
+	margin-right: -31px;
+	text-decoration: none;
+	display: inherit;
+	width: 160px;
+}
+
+.dropdown-content button:hover {
+	background-color: blue;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropbtn {
+	background: transparent;
+	border: none;
+	width: 60px;
+	height: 60px;
+}
+
+.logo {
+	float: left;
+	margin-left: 17.5px;
+	margin-top: 15px;
+	width: 75px;
+	height: 75px;
+}
+
+.logo img {
+	width: 65px;
+	height: 65px;
+	border-radius: 5px;
+}
+</style>
+</head>
+<body>
+	<div class="mainheader">
+
+		<div class="dropdown">
+			<button style="background-color: #204e7d; border: none;"
+				type="button">
+				<img style="width: 50px; height: 50px;" src="../images/profile.png">
+			</button>
+			<div class="dropdown-content">
+				<input class="userId" type="hidden"
+					value="${ userPojo.getUserId() }" name="id" readonly>
+				<button type="submit" value="userProfile" name="action"
+					onclick="profile()">Profile</button>
+
+				<button type="submit" value="Change Password" name="action"
+					onclick="password()">
+					<i class="fa fa-solid fa-key "></i> Change Password
+				</button>
+
+				<button class="profileBth" type="submit" value="Logout"
+					name="action" onclick="logout()">Logout</button>
+			</div>
+		</div>
+
+		<div style="float: left; width: 100%;">
+			<div class="logo">
+				<img src="../images/Joviz_bank_logoF.jpg">
+			</div>
+			<h1
+				style="text-align: left; color: white; margin-left: 120px; margin-top: 25px;">
+				<b>JOVIZ BANK</b>
+			</h1>
+		</div>
+
+	</div>
+
+	<div class="adminMenuBody">
+		<div align="left" class="sidebar menuButton">
+			<h2 id="nam"
+				style="text-align: left; margin-left: 15px; margin-top: 9%;">Welcome</h2>
+			<hr style="width: 90%; color: gray;">
+
+			<div class="menuButton">
+				<button type="submit" value="Admin Home" name="action" id="home"
+					onclick="home()">Home</button>
+			</div>
+
+			<div>
+				<button type="submit" value="searchUser" id="searchId" name="action"
+					onclick="searchUser()">Search User</button>
+			</div>
+			<div>
+				<button type="submit" value="AdminaccountDetails" id="searchAcc"
+					name="action" onclick="searchAccount()">Search Account</button>
+			</div>
+			<div>
+				<button type="submit" value="Add New User" id="User" name="action"
+					onclick="addUser()">Add User</button>
+			</div>
+			<div>
+				<button type="submit" value="Add New Customer" id="Customer"
+					name="action" onclick="addCustomer()">Add Customer</button>
+			</div>
+			<div>
+				<button type="submit" value="Fill Customer Details"
+					id="CustomerDetails" name="action" onclick="addDetails()">Add
+					Customer Details</button>
+			</div>
+			<div>
+				<button type="submit" value="Add New Account" name="action"
+					id="Account" onclick="addAccount()">Add Account</button>
+			</div>
+			<div>
+				<button type="submit" value="View Transaction Request" name="action"
+					id="transRequest" onclick="transactionReq()">Transaction
+					Request</button>
+			</div>
+			<div>
+				<button type="submit" value="View Customer Request" name="action"
+					id="customRequest" onclick="viewCustomerRequest()">Customer
+					Request</button>
+			</div>
+			<div>
+				<button type="submit" value="customerStatus" name="action"
+					id="blockUser" onclick="customerStatus()">Block Customer</button>
+			</div>
+		</div>
+
+		<div class="menu mainContent" id="adminArea"></div>
+	</div>
+</body>
+</html>

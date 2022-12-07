@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Page</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		var obj = {button: "getAccountList", id:$("#id").val()};
+		var myJson = JSON.stringify(obj);
+		
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var map = JSON.parse(response);
+				console.log(map);
+				var redMsg = map.redMessage;
+				if(redMsg == undefined)
+				{
+					for(i in map)
+					{
+						console.log(map[i]);
+						$("#accNo").append(
+							"<option>"+map[i]+"</option>"
+						);
+					}
+				}
+				else
+				{
+					$("#success").hide();
+					$("#fail").html(redMsg);
+				}
+			}
+		})
+	})
+
+</script>
+<style type="text/css">
+/* .hide {
+	visibility: hidden;
+	display: none;
+} */
+
+/* .tables th {
+	font-size: 18px;
+	position: sticky;
+	top: 2%;
+	background-color: #283655;
+	color: white;
+} */
+</style>
+</head>
+<body>
+	<h4 style="text-align: center; color: red;" id="fail"></h4>
+	<div style="margin-top: 3%;" class="${ show }">
+
+			<select style="margin-left: 50px; width: 30%;" class="inputStyle"
+				id="accNo" name="accountNo" required>
+			</select> <select style="margin-left: 50px; width: 30%" class="inputStyle"
+				id="days" name="days" required>
+				<option value="">Select Days</option>
+				<option value="7">7</option>
+				<option value="15">15</option>
+				<option value="30">30</option>
+				<option value="60">2 Months</option>
+				<option value="90">3 Months</option>
+			</select>
+			<button style="margin-left: 30px;" class="button accept-button"
+				type="submit" name="action" value="showAdminTransaction" onclick="showTransaction()">
+				Search</button>
+
+	</div>
+
+	<!-- <%
+	long accountNo = 0;
+	try {
+		accountNo = (Long) request.getAttribute("accountNo");
+	} catch (Exception e) {
+
+	}
+	if (accountNo != 0) {
+	%> -->
+	<div style="overflow: auto; height: 68vh; margin-top: 1%;" class="tables">
+		<table id="transactionTable">
+		<thead style="position: sticky; top: 1px;">
+			<tr style="background-color: #283655; color: white;">
+				<th>ID</th>
+				<th>Primary Account</th>
+				<th>Secondary Account</th>
+				<th>Time</th>
+				<th>Mode</th>
+				<th>Type</th>
+				<th>Amount</th>
+				<th>Closing Balance</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+				<!-- <tr>
+					<td>${ Transaction.getTransactionId() }</td>
+					<td>${ Transaction.getPrimaryAccount() }</td>
+					<td>${ Transaction.getSecondaryAccount() }</td>
+					<td></td>
+					<td>${ Transaction.getModeOfTransaction() }</td>
+					<td>${ Transaction.getTransactionType() }</td>
+					<td>${ Transaction.getAmount() }</td>
+					<td>${ Transaction.getClosingBalance() }</td>
+					<td>${ Transaction.getTransactionStatus() }</td>
+				</tr> -->
+		</table>
+	</div>
+	<!-- <%} %> -->
+</body>
+</html>

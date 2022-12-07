@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Find Grandson</title>
+</head>
+<body>
+
+	
+
+	Enter Name<input type="text" id="name" name="name" required value="">
+	<button onclick="myFunction()">Search</button>
+	
+	<p id="first"></p>
+	<p id="second"></p>
+
+	<script type="text/javascript">
+	
+function myFunction() {
+	
+	let son = [];
+	let grandson = [];
+	let name = document.getElementById("name").value;
+	
+	
+	let relation = [];
+	
+	relation.push({
+		parent: "Ram",
+		child: "Ravi"
+	});
+	
+	relation.push({
+		parent: "Ravi",
+		child: "Siva"
+	});
+	
+	relation.push({
+		parent: "Siva",
+		child: "Sam"
+	});
+	
+	relation.push({
+		parent: "Ravi",
+		child: "Raghu"
+	});
+	
+	relation.push({
+		parent: "Raghu",
+		child: "Tom"
+	});
+	
+	relation.push({
+		parent: "Tom",
+		child: "Jerry"
+	});
+	
+	relation.push({
+		parent: "Ram",
+		child: "Setha"
+	});
+	
+	relation.push({
+		parent: "Setha",
+		child: "Sethu"
+	});
+	
+	
+	
+	for (let i = 0; i < relation.length; i++)
+	{
+		if (relation[i].parent == name)
+		{
+			son.push(relation[i].child);
+		}
+	}
+	
+	for (let j=0; j < son.length; j++)
+	{
+		for(let i = 0; i < relation.length; i++)
+		{
+			if(son[j] == relation[i].parent)
+			{
+				grandson.push(relation[i].child);
+			}
+		}
+	}
+	
+	if(grandson.length > 0)
+	{
+		document.getElementById("first").innerHTML = "Number of GrandSon = " + grandson.length;
+		document.getElementById("second").innerHTML = "Names = " + grandson;
+		
+		/* document.write("Number of GrandSon = " + grandson.length);
+		document.write("<br>Names = " + grandson); */
+	}
+	else
+	{
+		document.getElementById("first").innerHTML = "<p style=\"color: red;\">No Grand Children</p>";
+		document.getElementById("second").innerHTML = "";
+	}
+}
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Request</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="customerJs.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		var obj = {
+			button :"selectCustomerRequest"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var json = JSON.parse(response);
+				var active = json.accountList;
+				var inactive = json.inactiveAcc;
+				if(active)
+				{
+					for(i in active)
+					{
+						$("#actAcc").append(
+							"<option>"+active[i]+"</option>"
+						);
+					}
+				}
+				else
+				{
+					$("#act").empty();
+				}
+				
+				if(inactive)
+				{
+					for(i in inactive)
+					{
+						$("#inactAcc").append(
+							"<option>"+inactive[i]+"</option>"
+						);
+					}
+				}
+				else
+				{
+					$("#inact").empty();
+				}
+			}
+		});
+})
+
+</script>
+
+<style type="text/css">
+.column {
+	float: left;
+	width: 45%;
+	padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+	margin: 0 -1px;
+	margin-left: 5%;
+	margin-top: 10%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 20px;
+	}
+}
+
+/* Style the counter cards */
+.card3 {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	height: 250px;
+	padding-top: 50px;
+	text-align: center;
+	background-color: #D0E1F9;
+	border-radius: 10px;
+	margin-top: 12%;
+}
+</style>
+</head>
+<body>
+
+	<div class="row">
+		<div id="act" class="column">
+			<div class="card3">
+				<h2 style="text-align: center;">De-Activation Request</h2>
+
+				<div>
+					<label class="labelClass2"><select class="inputStyle w-75"
+						id="actAcc" name="accountNo" required>
+							<option value="">Active Accounts</option>
+					</select></label>
+				</div>
+
+				<div style="text-align: center; padding-top: 5%;">
+					<button style="width: 160px;" class="button accept-button"
+						type="submit" value="requestDeactivation" name="action"
+						onclick="deactivate()">Request Deactivation</button>
+				</div>
+
+			</div>
+		</div>
+
+		<div id="inact" class="column">
+			<div class="card3">
+				<h2 style="text-align: center;">Activation Account Request</h2>
+
+				<div>
+					<label class="labelClass2"><select class="inputStyle w-75"
+						id="inactAcc" name="accountNo" required>
+							<option value="">Inactive Accounts</option>
+					</select></label>
+				</div>
+
+				<div style="text-align: center; padding-top: 5%;">
+					<button style="width: 160px;" class="button accept-button"
+						type="submit" value="requestActivation" name="action"
+						onclick="activate()">Request Activation</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<h3 style="text-align: center; color: green;" id="message"></h3>
+	<h3 style="text-align: center; color: red;" id="redMessage"></h3>
+</body>
+</html>

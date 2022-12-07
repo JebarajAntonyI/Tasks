@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Burger Boss</title>
+<link rel="stylesheet" href="burgerStyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="burger.js"></script>
+
+</head>
+<body>
+
+	
+		<h1 id="welcome">Welcome to BURGER BOSS</h1>
+	<button id="enter">Order Now</button>
+	<div id="welcomeDiv">
+		<button id="randomBurger">Burger of the Day</button>
+		<button id="orderBurger">Order Burger</button>
+		<button id="exit">Exit</button>
+	</div>
+	
+	<div id="menu">
+	<div id="burgerType">
+		<button class="type" id="veg">Veg- Burger</button>
+		<button class="type" id="nonVeg">Non-Veg Burger</button>
+		<button class="orderPage type">Back</button>
+	</div>
+	
+	<div id="crustDiv">
+	
+		<h3>Select Crust</h3>
+		<div>
+			<input id="hard" name="crust" type="radio" value="10"><label for="hard">Hard - ₹10</label><br>
+			<input id="thin" name="crust" type="radio" value="10"><label for="thin">Thin - ₹10</label><br>
+			<input id="soft" name="crust" type="radio" value="12"><label for="soft">Soft - ₹12</label>
+		</div>
+		<!-- <button id="selectCrust">Next</button> -->
+	
+	</div>
+	
+	<div id="fillingDiv">
+	
+		<h3>Select Filling</h3>
+		<div>
+			<input class="paneer" id="paneer" name="filling" type="radio" value="100"><label for="paneer">Paneer Tikka - ₹100</label><br>
+			<input class="chicken" id="chicken" name="filling" type="radio" value="120"><label class="chicken" for="chicken">Chicken Tikka - ₹120</label><br>
+			<input class="turkey" id="turkey" name="filling" type="radio" value="130"><label class="turkey" for="turkey">Turkey Meat - ₹130</label>
+		</div>
+		<!-- <button id="selectFilling">Next</button> -->
+		
+	</div>
+	
+	<div id="toppingsDiv">
+	
+		<h3>Select Toppings(Optional & max of 3)</h3>
+		<div>
+			<input id="cucumber" class="top" name="toppings" type="checkbox" value="25"><label for="cucumber">Cucumber - ₹25</label><br>
+			<input id="tomato" class="top" name="toppings" type="checkbox" value="20"><label for="tomato">Tomato - ₹20</label><br>
+			<input id="cabbage" class="top"name="toppings" type="checkbox" value="20"><label for="cabbage">Cabbage - ₹20</label><br>
+			<input id="meatStrip" class="meatStrip top" name="toppings" type="checkbox" value="45"><label class="meatStrip" for="meatStrip">Meat strip - ₹45</label>
+		</div>
+		<!-- <button id="selectToppings">Next</button> -->
+		<button id="submit">Submit</button>
+		<!-- <button class="orderPage">Back</button> -->
+		
+	</div>
+	</div>
+	
+	<div id="invoiceDiv">
+		<h2 id="invoice"></h2><br>
+		<div class="invoiceIn"></div>
+	
+	</div>
+	
+	<div><button class="cancel finalBtn1" id="cancelBurger">Cancel</button>
+	<button class="finalBtn2" id="confirmOrder">Confirm Order</button></div>
+
+</body>
+</html>

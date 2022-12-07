@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Burger Boss</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="burger.js"></script>
+
+</head>
+<body>
+
+	
+		<h1 id="welcome">Welcome to BURGER BOSS</h1>
+	<div><button id="enter">Order Now</button></div>
+	<div id="welcomeDiv">
+		<button id="randomBurger">Burger of the Day</button>
+		<button id="orderBurger">Order Burger</button>
+		<button id="exit">Exit</button>
+	</div>
+	
+	<div id="menu">
+	<div id="burgerType">
+		<button id="veg">Veg- Burger</button>
+		<button id="nonVeg">Non-Veg Burger</button>
+	</div>
+	
+	<div id="crustDiv">
+	
+		<p>Select Crust</p>
+		<div>
+			<input id="hard" name="crust" type="radio" value="10"><label for="hard">Hard - ₹10</label><br>
+			<input id="thin" name="crust" type="radio" value="10"><label for="thin">Thin - ₹10</label><br>
+			<input id="soft" name="crust" type="radio" value="12"><label for="soft">Soft - ₹12</label>
+		</div>
+		<!-- <button id="selectCrust">Next</button> -->
+	
+	</div>
+	
+	<div id="fillingDiv">
+	
+		<p>Select Filling</p>
+		<div>
+			<input class="paneer" id="paneer" name="filling" type="radio" value="100"><label for="paneer">Paneer Tikka - ₹100</label><br>
+			<input class="chicken" id="chicken" name="filling" type="radio" value="120"><label class="chicken" for="chicken">Chicken Tikka - ₹120</label><br>
+			<input class="turkey" id="turkey" name="filling" type="radio" value="130"><label class="turkey" for="turkey">Turkey Meat - ₹130</label>
+		</div>
+		<!-- <button id="selectFilling">Next</button> -->
+		
+	</div>
+	
+	<div id="toppingsDiv">
+	
+		<p>Select Toppings(max of 3)</p>
+		<div>
+			<input id="cucumber" name="toppings" type="checkbox" value="25"><label for="cucumber">Cucumber - ₹25</label><br>
+			<input id="tomato" name="toppings" type="checkbox" value="20"><label for="tomato">Tomato - ₹20</label><br>
+			<input id="cabbage" name="toppings" type="checkbox" value="20"><label for="cabbage">Cabbage - ₹20</label><br>
+			<input class="meatStrip" id="meatStrip" name="toppings" type="checkbox" value="45"><label class="meatStrip" for="meatStrip">Meat strip - ₹45</label>
+		</div>
+		<!-- <button id="selectToppings">Next</button> -->
+		<button id="submit">Submit</button>
+		
+	</div>
+	</div>
+	
+	<div><button class="cancel" id="cancelBurger">Cancel</button></div>
+	<div><button id="confirmOrder">Confirm Order</button></div>
+	
+	<div id="invoiceDiv">
+		<h2 id="invoice">Invoice of Burger</h2><br>
+	
+	</div>
+
+</body>
+</html>

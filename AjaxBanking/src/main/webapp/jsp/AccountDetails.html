@@ -1,0 +1,105 @@
+<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Account Details</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- <script src="customerJs.js"></script> -->
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"accountDetails", id:$("#id").val()
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			for(i in map)
+			{
+				var val = map[i];
+				
+				accNo = val["accountNo"];
+				accType = val["accountType"];
+				accBranch = val["accountBranch"];
+				ifsc = val["ifsc"];
+				balance = val["balance"];
+				stat = val["accountStatus"];
+				
+					$("#accountBody").append(
+						"<tr>"
+						+"<td>"+accNo+"</td>"
+						+"<td>"+accType+"</td>"
+						+"<td>"+accBranch+"</td>"
+						+"<td>"+ifsc+"</td>"
+						+"<td>"+balance+"</td>"
+						+"<td>"+stat+"</td>"
+						+"</tr>"
+					);
+			}
+		}
+	});
+});
+
+</script>
+
+<body>
+	<!-- <c:if test="${ message == null }"> -->
+	<div>
+	<header class="header">
+	<div class="positionf">
+	<h2 style="text-align: left; margin-left: 1%;">Account Details</h2>
+	</div>
+	</header>
+	
+	<div class="tables" style="margin-top: 10%;">
+		<table id=accountBody>
+			<tr style="background-color: #283655; color: white;">
+				<th>Account No</th>
+				<th>Type</th>
+				<th>Branch</th>
+				<th>IFSC</th>
+				<th>Balance</th>
+				<th>Status</th>
+			</tr>
+			
+			
+			<!-- <c:forEach var="account" items="${ accountMap }"> -->
+				<!-- <tr>
+					<td>${ account.key }</td>
+					<td>${ account.value.getAccountType() }</td>
+					<td>${ account.value.getAccountBranch() }</td>
+					<td>${ account.value.getIfsc() }</td>
+					<td>${ account.value.getBalance() }</td>
+					<td>${ account.value.getAccountStatus() }</td>
+				</tr>
+			</c:forEach>
+
+			<c:forEach var="account" items="${ account }">
+				<tr>
+					<td>${ account.value.getAccountNo() }</td>
+					<td>${ account.value.getAccountType() }</td>
+					<td>${ account.value.getAccountBranch() }</td>
+					<td>${ account.value.getIfsc() }</td>
+					<td>${ account.value.getBalance() }</td>
+					<td>${ account.value.getAccountStatus() }</td>
+				</tr> -->
+			<!-- </c:forEach> -->
+		</table>
+	</div>
+	</div>
+	<!-- </c:if> -->
+</body>
+</html>

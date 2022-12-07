@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+.bankName
+{
+	color: #FCF5F6FF;
+}
+.loginInput{
+	border: 2px solid grey;
+	border-radius: 5px;
+	box-sizing: border-box;
+	margin-bottom: 20px;
+	height: 40px;
+	width: 85%;
+}
+
+.signin 
+{
+	margin: auto;
+	margin-top: 20vh;
+	text-align:center;
+	background-color: white;
+	border-radius: 10px;
+	width: 20%;
+	padding: 16px;
+}
+.signin label
+{
+	justify-content: start; 
+	display: flex;
+	margin-left: 7.5%;
+}
+
+.loginButton button
+{
+	background-image: linear-gradient(to right, #24b3cd, #00a6d4, #0097db, #0086dd, 
+	#0073d9, #2969d5, #3e5fcf, #4f53c8, #6151c5, #6f4fc2, #7c4dbe, #874bba);
+	font-size: 15px;
+	/* font-family: cursive; */
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	margin: 8px 0;
+	border-radius: 5px;
+	cursor: pointer;
+	width: 75%;
+}
+.loginBody
+{
+	background-image: linear-gradient(to right top, #24b3cd, #15b0d4, #12acda,
+	 #21a8df, #34a3e3, #3c9be4, #4893e3, #578ae1, #617cdb, #6e6ed3, #7b5dc8, #874bba);	 
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+.labelClass {
+	margin: 20px 0;
+	position: relative;
+	display: inline-block;
+}
+
+.spanClass {
+	padding: 10px;
+	pointer-events: none;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: 0.2s;
+	transition-timing-function: ease;
+	transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+	opacity: 0.5;
+}
+
+.inputClass {
+	padding: 10px;
+}
+
+.inputClass:focus+.spanClass, .inputClass:not(:placeholder-shown)+.spanClass
+	{
+	opacity: 1;
+	transform: scale(0.9) translateY(-100%) translateX(-10px);
+}
+
+.inputClass:focus+.spanClass, .inputClass:not(:-ms-input-placeholder)+.spanClass
+	{
+	opacity: 1;
+	transform: scale(0.9) translateY(-100%) translateX(-10px);
+}

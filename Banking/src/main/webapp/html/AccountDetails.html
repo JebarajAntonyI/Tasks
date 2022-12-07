@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Account Details</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+</head>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"accountDetails", id:$("#id").val()
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			if(map.redMessage == undefined)
+			{
+				$("#redMessage").hide();
+				for(i in map)
+				{
+					var val = map[i];
+					
+					accNo = val["accountNo"];
+					accType = val["accountType"];
+					accBranch = val["accountBranch"];
+					ifsc = val["ifsc"];
+					balance = val["balance"];
+					stat = val["accountStatus"];
+					
+						$("#accountBody").append(
+							"<tr>"
+							+"<td>"+accNo+"</td>"
+							+"<td>"+accType+"</td>"
+							+"<td>"+accBranch+"</td>"
+							+"<td>"+ifsc+"</td>"
+							+"<td>"+balance+"</td>"
+							+"<td>"+stat+"</td>"
+							+"</tr>"
+						);
+				}
+			}
+			else
+			{
+				$("#message").hide();
+				$(".views").hide();
+				$("#redMessage").show().html(map.redMessage);
+			}
+		}
+	});
+});
+
+</script>
+
+<body>
+
+	<div class="tables views" style="margin-top: 10%;">
+		<table id=accountBody>
+			<tr style="background-color: #283655; color: white;">
+				<th>Account No</th>
+				<th>Type</th>
+				<th>Branch</th>
+				<th>IFSC</th>
+				<th>Balance</th>
+				<th>Status</th>
+			</tr>
+
+		</table>
+	</div>
+	<h4 style="text-align: center; color: green;" id="success"></h4>
+	<h4 style="text-align: center; color: red;" id="fail"></h4>
+</body>
+</html>

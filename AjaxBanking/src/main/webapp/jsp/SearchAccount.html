@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Page</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+</head>
+<body>
+
+	<header class="header">
+		<div class="sameGrid3 positionf">
+			<div>
+				<h2 style="text-align: left; margin-top: 1.5%; margin-left: 2%;">Account
+					Details</h2>
+		</div>
+		<div style="margin-right: 0%; margin-top: 1%;">
+			<input id="acNo" style="width: 14%;" class="userIdInput"
+				type="number" name="id" min="1" max="1300000000000"
+				placeholder="Customer Id or Account Number" required>
+			<button style="margin-left: 0.9%; width: 13%;"
+				class="button accept-button" type="submit" name="action"
+				value="AdminaccountDetails" onclick="accountSearch()">Search</button>
+			<button onclick="allAccount()" style="width: 15%"
+				class="button accept-button" type="submit" value="View All Account"
+				name="action">All Account</button>
+		</div>
+			<!-- <div style="margin-left: 0.5%; margin-top: 1%;">
+				<button onclick="allAccount()" style="width: 15%" class="button accept-button"
+					type="submit" value="View All Account" name="action">All
+					Account</button>
+			</div> -->
+		</div>
+	</header>
+
+	<!-- <div class="positionf">
+		<div>
+			<input id="acNo" style="width: 14%;" class="userIdInput"
+				type="number" name="id" min="1" max="1300000000000"
+				placeholder="Customer Id or Account Number" required>
+			<button style="margin-left: 0.9%; width: 13%;"
+				class="button accept-button" type="submit" name="action"
+				value="AdminaccountDetails" onclick="accountSearch()">Search</button>
+			<button onclick="allAccount()" style="width: 15%"
+				class="button accept-button" type="submit" value="View All Account"
+				name="action">All Account</button>
+		</div>
+	</div> -->
+
+	<div
+		style="overflow: auto; border: none; margin-top: 3%; width: 100%; height: 82vh;"
+		id="userArea">
+		<h4 style="text-align: center; margin-top: 5%; color: green;"
+			id="message"></h4>
+		<h4 style="text-align: center; margin-top: 10%; color: red;"
+			id="redMessage"></h4>
+	</div>
+
+</body>
+</html>

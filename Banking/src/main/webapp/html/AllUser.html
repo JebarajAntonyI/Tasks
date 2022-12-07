@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All User Table</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"View All User"
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			for(i in map)
+			{
+				var val = map[i];
+				
+					$("#userTable").append(
+						"<tr>"
+						+"<td>"+val.userId+"</td>"
+						+"<td>"+val.name+"</td>"
+						+"<td>"+val.dob+"</td>"
+						+"<td>"+val.mobile+"</td>"
+						+"<td>"+val.email+"</td>"
+						+"<td>"+val.userType+"</td>"
+						+"<td>"+val.onlineStatus+"</td>"
+						+"</tr>"
+					);
+			}
+		}
+	});
+});
+
+</script>
+
+</head>
+<body>
+	<div style="overflow: auto; height: 72vh; margin-top: 5%;"
+		class="tables">
+		<table id="userTable">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>User ID</th>
+					<th>Name</th>
+					<th>DOB</th>
+					<th>Mobile</th>
+					<th>Email</th>
+					<th>User Type</th>
+					<th>Online Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

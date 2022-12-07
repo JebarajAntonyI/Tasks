@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.banking.login.UserLogin;
+import com.banking.methods.BankUtil;
 import com.banking.methods.CustomerMethods;
 import com.banking.pojo.Account;
 import com.banking.pojo.Transaction;
@@ -22,7 +23,7 @@ public class CustomerConnect
 	Logger logger = Logger.getLogger("Banking Application");
 
 	private CustomerMethods customerMethods = new CustomerMethods();
-	private GetInput getInput = new GetInput();
+	private BankUtil getInput = new BankUtil();
 	private UserLogin userLogin = new UserLogin();
 	
 	public long selectAccount() throws UserDefinedException, SQLException

@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Page</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="customerJs.js"></script>
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		var obj = {
+			button :"getAccountNo"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var json = JSON.parse(response);
+				var list = json.list;
+				if(list)
+				{
+					for(i in list)
+					{
+						$("#accNo").append(
+							"<option>"+list[i]+"</option>"
+						);
+					}
+				
+					var obj = {button:"showTransaction", accountNo:list[0], days:7};
+					var myJson = JSON.stringify(obj);
+					
+					$.ajax({
+						type:"POST",
+						url:"../servlet",
+						data:myJson,
+						success:function(response)
+						{
+							var map = JSON.parse(response);
+							$(".trans").remove();
+							for(i in map)
+								{
+								let time = new Date(map[i].transactionTime);
+									$("#transactionTable").append(
+										"<tr class='trans'><td>"+map[i].transactionId+"</td>"
+										+ "<td>"+map[i].primaryAccount+"</td>"
+										+ "<td>"+map[i].secondaryAccount+"</td>"
+										+ "<td>"+time.toLocaleString()+"</td>"
+										+ "<td>"+map[i].modeOfTransaction+"</td>"
+										+ "<td>"+map[i].transactionType+"</td>"
+										+ "<td>"+map[i].amount+"</td>"
+										+ "<td>"+map[i].closingBalance+"</td>"
+										+ "<td>"+map[i].transactionStatus+"</td></tr>"
+									);
+								}
+						}
+					});
+				}
+				else
+				{
+					$("#redMessage").html("No Details Available to Display");
+				}
+			}
+		});
+})
+
+</script>
+<body>
+	<header class="header">
+		<div class="sameGrid positionf">
+			<h2 style="text-align: left; margin-left: 5%; margin-top: 3.5%;">Transaction
+				Details</h2>
+
+				<select style="margin-left: 26%; width: 20%; margin-top: 2%;"
+					class="inputStyle" id="accNo" name="accountNo" required>
+					<!-- <option value="">Select Account</option> -->
+				</select> <select style="margin-left: 220%; width: 30%; margin-top: -1%;"
+					class="inputStyle" id="days" name="days" required>
+					<!-- <option value="">Select Days</option> -->
+					<option value="7">7 Days</option>
+					<option value="15">15 Days</option>
+					<option value="30">30 Days</option>
+				</select>
+				<button style="margin-left: 69%; margin-top: -1%;" class="button accept-button"
+					type="submit" name="action" value="showTransaction" onclick="showTransaction()">Submit</button>
+		</div>
+	</header>
+	<!-- <%
+	long accountNo = 0;
+	try {
+		accountNo = (Long) request.getAttribute("accountNo");
+	} catch (Exception e) {
+
+	}
+	if (accountNo != 0) {
+	%> -->
+	<!-- <h3 style="text-align: center; color: blue">${ days }Days
+		Transaction Details for Account ${ accountNo }</h3> -->
+	<div style="overflow: auto; height: 79vh; margin-top: 3%;" class="tables">
+
+
+		<table id="transactionTable">
+		<thead style="position: sticky; top: 1px;">
+			<tr style="background-color: #283655; color: white;">
+				<th>ID</th>
+				<th>Primary Account</th>
+				<th>Secondary Account</th>
+				<th>Time</th>
+				<th>Mode</th>
+				<th>Type</th>
+				<th>Amount</th>
+				<th>Closing Balance</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+			<!-- <c:forEach var="Transaction" items="${ transactionList }">
+				<jsp:useBean id="myDate" class="java.util.Date" />
+				<c:set target="${myDate}" property="time"
+					value="${ Transaction.getTransactionTime() }" /> -->
+				<!-- <tr>
+					<td>${ Transaction.getTransactionId() }</td>
+					<td>${ Transaction.getPrimaryAccount() }</td>
+					<td>${ Transaction.getSecondaryAccount() }</td>
+					<td>${ Transaction.getTransactionTime() }</td>
+					<td><fmt:formatDate value="${myDate}"
+							pattern="dd-MM-yyyy  HH:mm:ss" /></td>
+					<td>${ Transaction.getModeOfTransaction() }</td>
+					<td>${ Transaction.getTransactionType() }</td>
+					<td>${ Transaction.getAmount() }</td>
+					<td>${ Transaction.getClosingBalance() }</td>
+					<td>${ Transaction.getTransactionStatus() }</td>
+				</tr> -->
+			<!-- </c:forEach> -->
+		</table>
+		<!-- <%} %> -->
+	</div>
+	<h3 style="text-align: center; color: red;" id="redMessage"></h3>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

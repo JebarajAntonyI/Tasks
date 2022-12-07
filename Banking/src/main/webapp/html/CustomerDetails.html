@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Details</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="customerJs.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var obj = {
+			button : "customerDetails"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type : "POST",
+			url : "../servlet",
+			data : myJson,
+			success : function(response) {
+				var customer = JSON.parse(response);
+				$("#cid").val(customer.customerId);
+				$("#name").val(customer.name);
+				$("#dob").val(customer.dob);
+				$("#mobile").val(customer.mobile);
+				$("#mail").val(customer.email);
+				$("#aadhar").val(customer.aadhar);
+				$("#pan").val(customer.pan);
+			}
+		});
+	});
+</script>
+</head>
+<body>
+
+	<div style="margin-top: 5%; padding-top: 30px; padding-bottom: 0px;"
+		class="card w-50">
+		<h2 style="text-align: center;">Customer Details</h2>
+		<table class="formTable">
+			<tr>
+				<td class="w-25">Customer Id</td>
+				<td><b><input class="inputStyle w-100" name="id" id="cid"
+						readonly></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">Name</td>
+				<td><b><input class="inputStyle w-100" id="name"
+						name="name" readonly></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">DOB</td>
+				<td><b><input class="inputStyle w-100" type="date"
+						name="dob" id="dob" readonly></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">Mobile <span style='font-size: 12px;'>&#128395;</span></td>
+				<td><b><input class="inputStyle w-100" type="tel"
+						pattern="^[6-9][0-9]{9}" maxlength="10" id="mobile"></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">Email <span style='font-size: 12px;'>&#128395;</span></td>
+				<td><b><input class="inputStyle w-100" type="email"
+						pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+$" name="mail"
+						id="mail"></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">Aadhar Number</td>
+				<td><b><input class="inputStyle w-100" id="aadhar" readonly></b></td>
+			</tr>
+
+			<tr>
+				<td class="w-25">PAN</td>
+				<td><b><input class="inputStyle w-100" id="pan" readonly></b></td>
+			</tr>
+
+			<tr>
+				<td><label></label></td>
+				<td><button class="accept-button button" type="submit"
+						name="action" value="modifyUserDetails" onclick="modifyDetails()">Save</button></td>
+			</tr>
+		</table>
+	</div>
+	<h4 style="text-align: center; color: green;" id="message"></h4>
+	<h4 style="text-align: center; color: red;" id="redMessage"></h4>
+</body>
+</html>

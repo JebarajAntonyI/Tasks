@@ -21,6 +21,8 @@ public interface TableAccessFace
 
 	public void addCustomerDetails(Customer customerPojo) throws UserDefinedException;
 	
+	public void addCustomerDetailsOnly(Customer customerPojo) throws UserDefinedException;
+	
 	public void modifyCustomerDetails(Customer customerPojo) throws SQLException, UserDefinedException;
 	
 	public void addAccountDetails(Account accountPojo) throws UserDefinedException;

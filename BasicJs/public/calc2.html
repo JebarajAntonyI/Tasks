@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calc 2</title>
+
+<script type="text/javascript">
+
+	var first = null;
+	var operation = null;
+
+	function numbers(num)
+	{
+		let values = document.getElementById("operation").value;
+		if (num == "." && values == "")
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + "0.";
+		}
+		else
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + num;
+		}
+	}
+	
+	function start()
+	{
+		document.getElementById("operation").value = null;
+		first = null;
+		operation = null;
+	}
+	
+	function add(action)
+	{
+		
+		var sel = document.getElementById()
+		
+		
+		
+		
+		
+		
+		
+		let check = document.getElementById("operation").value + action;  //if starting entry is '+' without any number.....The first value is consider as '+'
+		if(operation == null)
+		{
+			if (check != "+")
+			{
+				operation = "+";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			else
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			}
+		}
+		else
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + action;
+		}
+	}
+	
+	function subtract(action)
+	{
+		let check = document.getElementById("operation").value + action; //if starting entry is '-' without any number.....The first value is consider as '-'
+		if(operation == null)
+		{
+			if (check != "-")
+			{
+				operation = "-";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			else
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			}
+		}
+		else
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + action;
+		}
+	}
+	
+	function multiplay(action)
+	{
+		let check = document.getElementById("operation").value + action;
+		if(operation == null)
+		{
+			if (check != "*")
+			{
+				operation = "*";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			/* else
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			} */
+		}
+		else
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + action;
+		}
+	}
+	
+	function division(action)
+	{
+		let check = document.getElementById("operation").value + action;
+		if(operation == null)
+		{
+			if (check != "/")
+			{
+				operation = "/";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			/* else
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			} */
+		}
+		else
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + action;
+		}
+	}
+	
+	function equals()
+	{
+		switch(operation)
+		{
+			case "+":
+			{
+				ans = Number(first) + Number(document.getElementById("operation").value);
+				document.getElementById("operation").value = ans;
+				first=ans;
+				operation = null;
+				break;
+			}
+			
+			case "-":
+			{
+				ans = Number(first) - Number(document.getElementById("operation").value);
+				document.getElementById("operation").value = ans;
+				first=ans;
+				operation = null;
+				break;
+			}
+			
+			case "*":
+			{
+				ans = Number(first) * Number(document.getElementById("operation").value);
+				document.getElementById("operation").value = ans;
+				first=ans;
+				operation = null;
+				break;
+			}
+			
+			case "/":
+			{
+				ans = Number(first) / Number(document.getElementById("operation").value);
+				document.getElementById("operation").value = ans;
+				first=ans;
+				operation = null;
+				break;
+			}
+		}
+	}
+
+</script>
+
+<style type="text/css">
+
+	*
+	{
+		margin: 0;
+		padding: 0;
+	}
+	
+	.btn
+	{
+		width: 200px;
+		height: 85px;
+		font-size: 25;
+		margin: 2;
+		cursor: pointer;
+		font-size: 35px;
+	}
+	
+	.three-span-btn
+	{
+		width: 806px;
+	}
+	
+	.operation
+	{
+		width: 806px;
+		height: 180px;
+		margin: 5;
+		font-size: 25;
+		padding: 5;
+		background-color: #3d3c4a;
+		color: white;
+		text-align: right;
+		font-size: 35px;
+	}
+	
+	.main
+	{
+		margin-top: 7%;
+		width: 45.6%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.tables
+	{
+		width: 810px;
+		background-color: #8b82f5;
+	}
+	
+	body
+	{
+		background-color: #6c7682;
+	}
+
+</style>
+
+</head>
+<body>
+
+<div class="main">
+	<div class="output">
+		<input class="operation" id="operation" readonly>
+	</div>
+	
+	<table class="tables">
+	
+		<tr>
+			<td><button class="btn" value="7" onclick="numbers(7)">7</button></td>
+			<td><button class="btn" value="8" onclick="numbers(8)">8</button></td>
+			<td><button class="btn" value="9" onclick="numbers(9)">9</button></td>
+			<td><button id="divi" class="btn" value="/" onclick="division('/')">/</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="4" onclick="numbers(4)">4</button></td>
+			<td><button class="btn" value="5" onclick="numbers(5)">5</button></td>
+			<td><button class="btn" value="6" onclick="numbers(6)">6</button></td>
+			<td><button id="multi" class="btn" value="*" onclick="multiplay('*')">x</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="1" onclick="numbers(1)">1</button></td>
+			<td><button class="btn" value="2" onclick="numbers(2)">2</button></td>
+			<td><button class="btn" value="3" onclick="numbers(3)">3</button></td>
+			<td><button id="minus" class="btn" value="-" onclick="subtract('-')">-</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="." onclick="numbers('.')">.</button></td>
+			<td><button class="btn" value="0" onclick="numbers(0)">0</button></td>
+			<td><button class="btn" value="=" onclick="equals()">=</button></td>
+			<td><button id="plus" class="btn" value="+" onclick="add('+')">+</button></td>
+		</tr>
+		
+		<tr>
+			<td colspan="4"><button class="btn three-span-btn" onclick="start()">Clear</button></td>
+		</tr>
+	
+	</table>
+	
+
+</div>
+
+</body>
+</html>

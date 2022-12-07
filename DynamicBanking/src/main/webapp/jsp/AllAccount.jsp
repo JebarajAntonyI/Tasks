@@ -1,78 +1,104 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>All Accounts</title>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 <style type="text/css">
-	table
-	{
-		width: 100%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	table, th, td
-	{
-		border: 2px solid rgb(46, 52, 54);
-		border-collapse: collapse;
-		text-align: center;
-		padding: 15px;
-	}
-	th
-	{
-		font-size: 18px;
-	}
-	body
-	{
-		background-color: #F5F5DC;
-	}
+.hide {
+	visibility: hidden;
+	display: none;
+}
+
+.tables th {
+	font-size: 18px;
+	position: sticky;
+	top: 4%;
+	background-color: #283655;
+	color: white;
+}
 </style>
 </head>
 <body>
+	<header class="header">
+		<h2 style="text-align: left; margin-top: 2%;">All Accounts</h2>
+	</header>
 
-	<table>
-		<tr>
-			<th>Customer Id</th>
-			<th>Account Number</th>
-			<th>Account Type</th>
-			<th>Account Branch</th>
-			<th>IFSC</th>
-			<th>Balance</th>
-			<th>Account Status</th>
-		</tr>
-		
-		<tr>
-			<td>1</td>
-			<td><a href="TransactionDetails.html">712365478965</a></td>
-			<td>Savings</td>
-			<td>MaduraiMain</td>
-			<td>ZIUB000008</td>
-			<td>98500</td>
-			<td>ACTIVE</td>
-		</tr>
-		
-		<tr>
-			<td>2</td>
-			<td>769878954516</td>
-			<td>Savings</td>
-			<td>Karaikudi</td>
-			<td>ZIUB000045</td>
-			<td>200000</td>
-			<td>ACTIVE</td>
-		</tr>
-		
-		<tr>
-			<td>3</td>
-			<td>712563987456</td>
-			<td>Savings</td>
-			<td>Chennai South</td>
-			<td>ZIUB000097</td>
-			<td>300000</td>
-			<td>ACTIVE</td>
-		</tr>
-	</table>
-	<div>
-		<a href="AdminHome.jsp"><button>Back</button></a>
+	<div class="${ show }">
+		<div class="tables">
+			<table>
+				<tr style="background-color: #283655; color: white;">
+					<th>Customer Id</th>
+					<th>Account Number</th>
+					<th>Type</th>
+					<th>Branch</th>
+					<th>IFSC</th>
+					<th>Balance</th>
+					<th>Status</th>
+				</tr>
+
+				<c:forEach var="account" items="${ accountList }">
+					<tr>
+						<td>
+							<form action="<%=request.getContextPath()%>/servlet"
+								target="adminArea">
+								<input class="userId" type="submit"
+									value="${ account.getCustomerId() }" name="id" readonly>
+								<input type="hidden" value="accountDetails" name="action">
+							</form>
+						</td>
+
+						<td>
+							<form action="<%=request.getContextPath()%>/servlet"
+								target="adminArea">
+								<input class="userId" type="submit"
+									value="${ account.getAccountNo() }" name="accountNo" readonly>
+								<input type="hidden" value="7" name="days">
+								<input type="hidden" value="showTransaction" name="action">
+							</form>
+						</td>
+
+						<td>${ account.getAccountType() }</td>
+						<td>${ account.getAccountBranch() }</td>
+						<td>${ account.getIfsc() }</td>
+						<td>${ account.getBalance() }</td>
+						<td>${ account.getAccountStatus() }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 	</div>
+
+
+
+	<%-- <c:if test="${ accountMap != null }">
+		<div class="tables">
+			<table>
+				<tr style="background-color: #4C7197; color: white;">
+					<th>Account No</th>
+					<th>Type</th>
+					<th>Branch</th>
+					<th>IFSC</th>
+					<th>Balance</th>
+					<th>Status</th>
+				</tr>
+
+				<c:forEach var="account" items="${ accountMap }">
+					<tr>
+						<td>${ account.key }</td>
+						<td>${ account.value.getAccountType() }</td>
+						<td>${ account.value.getAccountBranch() }</td>
+						<td>${ account.value.getIfsc() }</td>
+						<td>${ account.value.getBalance() }</td>
+						<td>${ account.value.getAccountStatus() }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if> --%>
 
 </body>
 </html>

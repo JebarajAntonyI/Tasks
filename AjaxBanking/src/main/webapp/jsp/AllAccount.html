@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Accounts</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"View All Account"
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			for(i in map)
+			{
+				var val = map[i];
+				$("#accountTable").append(
+					"<tr>"
+					+"<td>"+val.customerId+"</td>"
+					+"<td>"+val.accountNo+"</td>"
+					+"<td>"+val.accountType+"</td>"
+					+"<td>"+val.accountBranch+"</td>"
+					+"<td>"+val.ifsc+"</td>"
+					+"<td>"+val.balance+"</td>"
+					+"<td>"+val.accountStatus+"</td>"
+					+"</tr>"
+				);
+			}
+		}
+	});
+});
+
+</script>
+<!-- <style type="text/css">
+.hide {
+	visibility: hidden;
+	display: none;
+}
+
+.tables th {
+	font-size: 18px;
+	position: sticky;
+	top: 4%;
+	background-color: #283655;
+	color: white;
+}
+</style> -->
+</head>
+<body>
+	<!-- <header class="header">
+		<h2 style="text-align: left; margin-top: 2%;">All Accounts</h2>
+	</header> -->
+
+	<div style="overflow: auto; height: 73vh; margin-top: 3%;" class="tables">
+			<table id="accountTable">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>Customer Id</th>
+					<th>Account Number</th>
+					<th>Type</th>
+					<th>Branch</th>
+					<th>IFSC</th>
+					<th>Balance</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+
+					<!-- <tr>
+						<td>
+								<input class="userId" type="submit"
+									value="${ account.getCustomerId() }" name="id" readonly>
+								<input type="hidden" value="accountDetails" name="action">
+						</td>
+
+						<td>
+								<input class="userId" type="submit"
+									value="${ account.getAccountNo() }" name="accountNo" readonly>
+								<input type="hidden" value="7" name="days">
+								<input type="hidden" value="showTransaction" name="action">
+						</td>
+
+						<td>${ account.getAccountType() }</td>
+						<td>${ account.getAccountBranch() }</td>
+						<td>${ account.getIfsc() }</td>
+						<td>${ account.getBalance() }</td>
+						<td>${ account.getAccountStatus() }</td>
+					</tr> -->
+			</table>
+		</div>
+
+
+
+		<!-- <div class="tables">
+			<table>
+				<tr style="background-color: #4C7197; color: white;">
+					<th>Account No</th>
+					<th>Type</th>
+					<th>Branch</th>
+					<th>IFSC</th>
+					<th>Balance</th>
+					<th>Status</th>
+				</tr>
+
+					<tr>
+						<td>${ account.key }</td>
+						<td>${ account.value.getAccountType() }</td>
+						<td>${ account.value.getAccountBranch() }</td>
+						<td>${ account.value.getIfsc() }</td>
+						<td>${ account.value.getBalance() }</td>
+						<td>${ account.value.getAccountStatus() }</td>
+					</tr>
+			</table>
+		</div> -->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

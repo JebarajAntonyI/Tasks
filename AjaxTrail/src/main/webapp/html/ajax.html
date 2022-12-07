@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ajax</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+	
+	<input type="text" id="name" placeholder="Name">
+	<input type="text" id="age" placeholder="Age">
+
+	<button id="clicked" >Click Me</button>
+	
+	<br><br>
+	<strong>Ajax Response</strong>:
+	<div>
+		<p id="display"></p>
+	</div>
+</body>
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$("#clicked").click(function (){
+			var name = $("#name").val();
+			var age = $("#age").val();
+			$.ajax({
+				method: "POST",
+				url: "../AjaxServlet",
+				data:{name:name, age:age},
+				success:function(asa){
+					$("#display").html(asa);
+				},
+				error:function(asa){
+					alert("error");
+				}
+			});
+		});
+	});
+	
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

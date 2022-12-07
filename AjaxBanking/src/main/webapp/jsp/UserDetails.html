@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Details</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+<body>
+	<!-- <header class="header">
+		<h2 style="text-align: left;">User Details</h2>
+	</header> -->
+
+		<div style="margin-top: 5%; padding-top: 15px; padding-bottom: 15px;"
+			class="card w-40">
+			<table class="formTable">
+				<tr>
+					<td class="w-25">Customer Id</td>
+					<td><b><input class="inputStyle w-100"
+							 name="id" id="cid" readonly></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">Name <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100"
+							 name="name" id="name"></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">DOB <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100" type="date"
+							 name="dob" id="dob"></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">Mobile <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100" type="tel" pattern="^[6-9][0-9]{9}"
+							 maxlength="10" name="mobile" id="mobile"></b></td>
+				</tr>
+
+				<tr>
+					<td class="w-25">Email <span style='font-size: 12px;'>&#128395;</span></td>
+					<td><b><input class="inputStyle w-100" type="email" pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+$"
+							 name="mail" id="mail"></b></td>
+				</tr>
+
+				<tr>
+					<td><label></label></td>
+					<td><button class="accept-button button" type="submit"
+							name="action" value="modifyUserDetails" onclick="modifyUserDetails()">Save</button></td>
+				</tr>
+
+			</table>
+		</div>
+		<h4 style="text-align: center; color: red;" id="fail"></h4>
+		<h4 style="text-align: center; color: green;" id="success"></h4>
+
+</body>
+</html>

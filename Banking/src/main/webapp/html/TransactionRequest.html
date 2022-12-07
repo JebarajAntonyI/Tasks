@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Request</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		var obj = {button: "showTransactionRequest", reqType: "Pending"};
+		var myJson = JSON.stringify(obj);
+		
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var map = JSON.parse(response);
+				console.log(map);
+				$(".tr").remove();
+				for(i in map)
+				{
+					var val = map[i];
+					var status = val.status;
+					
+					if(status == "Pending")
+					{
+						let reqTime = new Date(val.requestTime);
+						$("#transReq").append(
+							"<tr class='tr'>"
+							+"<td>"+val.requestNumber+"</td>"
+							+"<td>"+val.customerId+"</td>"
+							+"<td>"+val.accountNo+"</td>"
+							+"<td>"+val.requestFor+"</td>"
+							+"<td>"+reqTime.toLocaleString()+"</td>"
+							+"<td>-</td>"
+							+"<td>"+val.amount+"</td>"
+							+"<td>"+val.status+"</td>"
+							+"<td><button onclick='approveTransaction(" + val.requestNumber +")' title='Approve' style='width: 40%;' class='button green-button'"
+							+"type='submit' value='ApproveTransaction' name='action'>"
+							+"<span style='font-size: 100%;'>&#10004;</span>"
+							+"</button>"
+							+"<button onclick='rejectTransaction(" + val.requestNumber +")' title='Reject' style='width: 40%;' class='button red-button'"
+							+"type='submit' value='RejectTransaction' name='action'>"
+							+"<span style='font-size: 100%;'>&#10006;</span>"
+							+"</button></td>"
+							+"</tr>"
+						);
+					}
+				}
+			}
+		})
+	})
+
+</script>
+
+<body>
+	<header class="header">
+		<div class="sameGrid positionf">
+
+			<select style="margin-left: 10%; width: 70%; margin-top: 8%;"
+				class="inputStyle" id="reqType" name="reqType">
+				<option value="Pending">Pending</option>
+				<option value="Approved">Approved</option>
+				<option value="Rejected">Rejected</option>
+			</select>
+			<button style="margin-left: -15%; margin-top: 12%;"
+				class="button accept-button" type="submit" name="action"
+				value="showTransactionRequest" onclick="showTransactionRequest()">
+				Search</button>
+
+		</div>
+	</header>
+
+	<div style="overflow: auto; height: 78vh; margin-top: 3%;"
+		class="tables">
+		<table id="transReq" style="width: 95%;">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>Request No</th>
+					<th>Customer ID</th>
+					<th>Account Number</th>
+					<th>Request Type</th>
+					<th>Request Time</th>
+					<th>Verified Time</th>
+					<th>Amount</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+</body>
+</html>

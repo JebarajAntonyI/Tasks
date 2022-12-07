@@ -1,8 +1,6 @@
 package com.banking.pojo;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import com.banking.methods.BankUtil;
 
 public class TransactionRequest 
 {
@@ -94,15 +92,14 @@ public class TransactionRequest
 	{
 		this.amount = amount;
 	}
-	LocalDateTime requstDate = Instant.ofEpochMilli(getRequestTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-	LocalDateTime verifiedDate = Instant.ofEpochMilli(getVerifiedTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+	
 	public String toString() 
 	{
 		return ("Request Number: " + getRequestNumber() + "\n" 
 				+ "Customer ID: " + getCustomerId() + "\n" 
 				+ "Account Number: " + getAccountNo() + "\n"
 				+ "Request For: " + getRequestFor() + "\n" 
-				+ "Request Time: " + requstDate + "\n" 
+				+ "Request Time: " + BankUtil.getTime(getRequestTime()) + "\n" 
 				+ "Request Status: " + getStatus() + "\n" 
 				+ "Request Amount: " + getAmount());
 	}

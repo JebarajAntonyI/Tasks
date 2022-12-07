@@ -20,7 +20,7 @@
 		<input type = "email" placeholder="Enter new Email" name = "mail">
 		<br><br>
 		<button type = "submit">Submit</button>
-		<a href="CustomerDetails.jsp"><button>Back</button></a>
+		<a href="jsp/CustomerDetails.jsp"><button>Back</button></a>
 	</div>
 	
 </body>

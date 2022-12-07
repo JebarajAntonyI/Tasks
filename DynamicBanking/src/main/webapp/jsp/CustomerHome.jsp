@@ -1,33 +1,53 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Customer Home Page</title>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
 </head>
-<link rel="stylesheet" type="text/css" href="style/HomeStyle.css">
+
+<style type="text/css">
+body {
+	background-image:
+		url("<%=request.getContextPath()%>/images/customerHome.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+</style>
+
 <body>
+	<c:if test="${ accountMap != null }">
+		<div class="tables"
+			style="margin-left: auto; margin-right: auto; margin-top: 17%;">
+			<table>
+				<tr style="background-color: #283655; color: white;">
+					<th>Account No</th>
+					<th>Type</th>
+					<th>Status</th>
+				</tr>
+				<c:forEach var="account" items="${ accountMap }">
+					<tr>
+						<td>${ account.key }</td>
+						<td>${ account.value.getAccountType() }</td>
+						<td>${ account.value.getAccountStatus() }</td>
+					</tr>
+				</c:forEach>
 
-	<h1 style="text-align:center;"> Welcome Customer </h1>
-	
-	<table>
-		<tr>
-			<th> Account No </th>
-			<th> Account Type </th>
-			<th> Balance </th>
-		</tr>
-		
-		<tr>
-			<td><a href = "AccountDetails.jsp">712365478965</a></td>
-			<td>Savings</td>
-			<td>98500</td>
-		</tr>
-		
-		<tr>
-			<td>798654896321<a href = "AccountDetails.jsp"></a></td>
-			<td>Savings</td>
-			<td>102000</td>
-		</tr>
-	</table>
-
+				<c:forEach var="account" items="${ account }">
+					<tr>
+						<td>${ account.value.getAccountNo() }</td>
+						<td>${ account.value.getAccountType() }</td>
+						<td>${ account.value.getAccountBranch() }</td>
+						<td>${ account.value.getIfsc() }</td>
+						<td>${ account.value.getBalance() }</td>
+						<td>${ account.value.getAccountStatus() }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+	</c:if>
 </body>
 </html>

@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Customer Request</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		var obj = {button: "showCustomerRequest", reqType: "Pending"};
+		var myJson = JSON.stringify(obj);
+		
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var map = JSON.parse(response);
+				console.log(map);
+				$(".tr").remove();
+				for(i in map)
+				{
+					var val = map[i];
+					var message = val.requestMessage;
+					var status = val.requestStatus;
+					
+					if(message == "Requst for Activation" && status=="Pending")
+					{
+						$("#custReq").append(
+							"<tr class='tr'>"
+							+"<td>"+val.requestNo+"</td>"
+							+"<td>"+val.customerId+"</td>"
+							+"<td>"+val.accountNo+"</td>"
+							+"<td>"+val.requestMessage+"</td>"
+							+"<td>"+val.requestStatus+"</td>"
+							+"<td><button onclick='activateAccount(" + val.requestNo + ", " + val.accountNo +")' title='Activate' style='width: 40%;' class='button green-button'"
+							+"type='submit' value='ActivateAccount' name='action'>"
+							+"<span style='font-size: 100%;'>&#10004;</span>"
+							+"</button>"
+						 	+"<button onclick='cancelCustomerRequest(" + val.requestNo + ")' title='Reject' style='width: 40%;' class='button red-button'"
+							+"type='submit' value='cancelCustomerRequest' name='action'>"
+							+"<span style='font-size: 100%;'>&#10006;</span>"
+							+"</button></td>"
+							+"</tr>"
+						);
+					}
+					else if(message == "Requst for Deactivation" && status=="Pending")
+					{
+						$("#custReq").append(
+							"<tr class='tr'>"
+							+"<td>"+val.requestNo+"</td>"
+							+"<td>"+val.customerId+"</td>"
+							+"<td>"+val.accountNo+"</td>"
+							+"<td>"+val.requestMessage+"</td>"
+							+"<td>"+val.requestStatus+"</td>"
+							+"<td><button onclick='deactivateAccount(" + val.requestNo + ", " + val.accountNo +")' title='De-Activate' style='width: 40%;' class='button deactivate-button'"
+							+"type='submit' value='DeactivateAccount' name='action'>"
+							+"<span style='font-size: 100%;'>&#9940;</span>"
+							+"</button>"
+							+"<button onclick='cancelCustomerRequest(" + val.requestNo + ")' title='Reject' style='width: 40%;' class='button red-button'"
+							+"type='submit' value='cancelCustomerRequest' name='action'>"
+							+"<span style='font-size: 100%;'>&#10006;</span>"
+							+"</button></td>"
+							+"</tr>"
+						);
+					}
+				}
+			}
+		})
+	})
+
+</script>
+</head>
+<body>
+	<header class="header">
+		<div class="sameGrid positionf">
+
+			<select style="margin-left: 10%; width: 70%; margin-top: 8%;"
+				class="inputStyle" id="reqType" name="reqType">
+				<option value="Pending">Pending</option>
+				<option value="Processed">Processed</option>
+				<option value="Rejected">Rejected</option>
+			</select>
+			<button style="margin-left: -15%; margin-top: 12%;"
+				class="button accept-button" type="submit" name="action"
+				value="showCustomerRequest" onclick="showCustomerRequest()">
+				Search</button>
+
+		</div>
+	</header>
+
+	<div id="views" style="overflow: auto; height: 78vh; margin-top: 3%;"
+		class="tables">
+		<table id="custReq" style="width: 90%;">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>Request Number</th>
+					<th>Customer Id</th>
+					<th>Account Number</th>
+					<th>Request Message</th>
+					<th>Request Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+</body>
+</html>

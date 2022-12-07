@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transfer</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="customer.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+		var obj = {
+			button :"getAccountNo"
+		};
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var json = JSON.parse(response);
+				var list = json.list;
+				for(i in list)
+				{
+					$("#accNo").append(
+						"<option>"+list[i]+"</option>"
+					);
+				}
+			}
+		});
+})
+
+</script>
+
+
+<body>
+	<header class="header">
+		<div class="positionf">
+			<h2 style="text-align: left; margin-left: 1%; margin-top: 1%;">Transfer</h2>
+		</div>
+	</header>
+		<div style="margin-top: 13%;" class="card">
+
+			<div>
+				<label class="labelClass2"><select class="inputStyle w-77"
+					id="accNo" name="accountNo" required>
+						<option value="">Select Account</option>
+				</select></label>
+			</div>
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2" id="toAcc"
+					type="number" placeholder=" " name="toAccount" required><span
+					class="spanClass2">To Account<span style="color: red;">
+							*</span></span></label>
+			</div>
+
+			<div>
+				<label class="labelClass2"><input class="inputClass2" id="amount"
+					type="number" placeholder=" " name="amount" min=1 required><span
+					class="spanClass2">Amount<span style="color: red;"> *</span></span></label>
+			</div>
+
+			<div style="text-align: center">
+				<button class="accept-button button" type="submit"
+					value="transferAmount" name="action" onclick="transferAmount()">Submit</button>
+			</div>
+
+		</div>
+		<h3 style="text-align: center; color: green;" id="message"></h3>
+		<h3 style="text-align: center; color: red;" id="redMessage"></h3>
+</body>
+</html>

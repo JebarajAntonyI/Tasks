@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.banking.login.UserLogin;
+import com.banking.methods.BankUtil;
 import com.banking.methods.CustomerMethods;
 import com.banking.methods.UserMethods;
 import com.user.exception.UserDefinedException;
@@ -20,7 +21,7 @@ public class BankRunner {
 	{
 		CustomerConnect customerConnect = new CustomerConnect();
 		AdminConnect adminConnect = new AdminConnect();
-		GetInput getInput = new GetInput();
+		BankUtil getInput = new BankUtil();
 		boolean value = false;
 		String password;
 		Logger logger = Logger.getLogger("Banking Application");

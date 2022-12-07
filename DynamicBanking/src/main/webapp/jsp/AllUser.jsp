@@ -1,75 +1,61 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>All User Table</title>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/style/HomeStyle.css">
+
 <style type="text/css">
-	table
-	{
-		width: 70%;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	table, th, td
-	{
-		border: 2px solid rgb(46, 52, 54);
-		border-collapse: collapse;
-		text-align: center;
-		padding: 15px;
-	}
-	th
-	{
-		font-size: 18px;
-	}
-	body
-	{
-		background-color: #F5F5DC;
-	}
+.tables th {
+	font-size: 18px;
+	position: sticky;
+	top: 2%;
+	background-color: #283655;
+	color: white;
+}
 </style>
+
 </head>
 <body>
+	<header>
+		<h2 style="text-align: left">All Users</h2>
+	</header>
+	
+	<div class="tables">
+		<table>
+			<tr style="background-color: #283655; color: white;">
+				<th>User ID</th>
+				<th>Name</th>
+				<th>DOB</th>
+				<th>Mobile</th>
+				<th>Email</th>
+				<th>User Type</th>
+				<th>Online Status</th>
+			</tr>
 
-	<table>
-		<tr>
-			<th>User ID</th>
-			<th>Name</th>
-			<th>DOB</th>
-			<th>Mobile</th>
-			<th>Email</th>
-			<th>User Type</th>
-		</tr>
-		
-		<tr>
-			<td><a href="CustomerDetails.jsp">1</a></td>
-			<td>Jeba</td>
-			<td>18-08-1998</td>
-			<td>1234567890</td>
-			<td>jeba@zohocorp.com</td>
-			<td>Admin</td>
-		</tr>
-		
-		<tr>
-			<td>2</td>
-			<td>Jose</td>
-			<td>21-02-2000</td>
-			<td>2345678910</td>
-			<td>jose@gmail.com</td>
-			<td>Customer</td>
-		</tr>
-		
-		<tr>
-			<td>3</td>
-			<td>Deva</td>
-			<td>12-07-2001</td>
-			<td>3456789102</td>
-			<td>deva@gmail.com</td>
-			<td>Customer</td>
-		</tr>
-	</table>
-	<div>
-		<a href="AdminHome.jsp"><button>Back</button></a>
+			<c:forEach var="user" items="${ userList }">
+				<tr>
+					<td>
+						<form action="<%=request.getContextPath()%>/servlet"
+							target="adminArea">
+							<input class="userId" type="submit" value="${ user.getUserId() }"
+								name="id" readonly> <input type="hidden"
+								value="userDetails" name="action">
+						</form>
+					</td>
+					<td>${ user.getName() }</td>
+					<td>${ user.getDob() }</td>
+					<td>${ user.getMobile() }</td>
+					<td>${ user.getEmail() }</td>
+					<td>${ user.getUserType() }</td>
+					<td>${ user.getOnlineStatus() }</td>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
-
 </body>
 </html>
 

@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add New Customer</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+</head>
+<body>
+	<div class="card">
+
+		<div>
+			<label class="labelClass2"> <input class="inputClass2"
+				type="text" placeholder=" " name="name" id="name" required>
+				<span class="spanClass2">Name<span style="color: red;">
+						*</span></span></label>
+		</div>
+
+		<div>
+			<label class="labelClass2"> <input class="inputClass2"
+				type="tel" placeholder="  " name="mobile" id="mobile" maxlength=10
+				pattern="^[6-9][0-9]{9}" required> <span class="spanClass2">Mobile<span
+					style="color: red;"> *</span></span></label>
+		</div>
+
+		<div>
+			<label class="labelClass2"> <input class="inputClass2"
+				type="email" placeholder=" " name="email" id="email"
+				pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9-]+.[a-zA-Z]+$" required>
+				<span class="spanClass2">Email<span style="color: red;">
+						*</span></span></label>
+		</div>
+
+		<div>
+			<label class="labelClass2"> <input
+				class="inputClass2 textbox-n" type="text" id="dob"
+				onfocus="(this.type='date')" placeholder="DOB *" name="dob"
+				id="date" required></label>
+		</div>
+
+
+		<div>
+			<label class="userAccountSel"><select
+				style="text-align: left; font-size: 14px;" class="inputStyle w-77"
+				id="userType" name="userType" required>
+					<option value="">User Type *</option>
+					<option value="Customer">Customer</option>
+					<option value="ADMIN">ADMIN</option>
+			</select></label>
+		</div>
+
+		<div>
+			<label class="labelClass2"> <input class="inputClass2"
+				id="pass" type="password" placeholder=" " name="pass" required>
+				<span class="spanClass2">Password<span style="color: red;">
+						*</span></span></label>
+		</div>
+
+		<div style="text-align: center; margin-top: 13px">
+			<button class="accept-button button" type="submit" name="action"
+				value="newUser" onclick="createUser()">Add</button>
+		</div>
+
+	</div>
+
+
+	<h4 style="text-align: center; color: green;" id="message"></h4>
+	<h4 style="text-align: center; color: red;" id="redMessage"></h4>
+</body>
+</html>

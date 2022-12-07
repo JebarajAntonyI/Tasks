@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.banking.interfaces.TableAccessFace;
+import com.banking.methods.BankUtil;
 import com.banking.pojo.Account;
 import com.banking.pojo.Customer;
 import com.banking.pojo.CustomerRequest;
@@ -144,26 +145,26 @@ public class TableAccess implements TableAccessFace
 		}
 	}
 
-//	@Override
-//	public void addCustomerDetails(Customer customerPojo) throws UserDefinedException 
-//	{
-//		String query = "INSERT INTO Customer_Details (CUSTOMER_ID, AADHAR_NO, PAN_NO, ADDRESS) VALUES (?, ?, ?, ?)";
-//		try (Connection connect = getConnection()) 
-//		{
-//			try (PreparedStatement statement = connect.prepareStatement(query)) 
-//			{
-//				statement.setInt(1, customerPojo.getCustomerId());
-//				statement.setLong(2, customerPojo.getAadhar());
-//				statement.setString(3, customerPojo.getPan());
-//				statement.setString(4, customerPojo.getAddress());
-//				statement.executeUpdate();
-//			}
-//		} 
-//		catch (SQLException se) 
-//		{
-//			throw new UserDefinedException("Can't add Customer Detail", se);
-//		}
-//	}
+	@Override
+	public void addCustomerDetailsOnly(Customer customerPojo) throws UserDefinedException 
+	{
+		String query = "INSERT INTO Customer_Details (CUSTOMER_ID, AADHAR_NO, PAN_NO, ADDRESS) VALUES (?, ?, ?, ?)";
+		try (Connection connect = getConnection()) 
+		{
+			try (PreparedStatement statement = connect.prepareStatement(query)) 
+			{
+				statement.setInt(1, customerPojo.getCustomerId());
+				statement.setLong(2, customerPojo.getAadhar());
+				statement.setString(3, customerPojo.getPan());
+				statement.setString(4, customerPojo.getAddress());
+				statement.executeUpdate();
+			}
+		} 
+		catch (SQLException se) 
+		{
+			throw new UserDefinedException("Can't add Customer Detail", se);
+		}
+	}
 	
 	@Override
 	public void addCustomerDetails(Customer customerPojo) throws UserDefinedException 
@@ -871,13 +872,15 @@ public class TableAccess implements TableAccessFace
 	@Override
 	public Map<Long, Map<Integer, Transaction>> getAllTransactionDetailsMap(int customerId) throws SQLException, UserDefinedException 
 	{
-		String query = "SELECT * FROM Transaction_Details WHERE CUSTOMER_ID = ?";
+		long milliSec = BankUtil.milliBeforeDays();
+		String query = "SELECT * FROM Transaction_Details WHERE CUSTOMER_ID = ? AND TRANSACTION_TIME > ? ORDER BY TRANSACTION_ID DESC";
 		Map<Long, Map<Integer, Transaction>> transactionMap = new HashMap<Long, Map<Integer, Transaction>>();
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
 				statement.setInt(1, customerId);
+				statement.setLong(2, milliSec);
 				try (ResultSet result = statement.executeQuery()) 
 				{
 					Map<Integer, Transaction> innerMap = new HashMap<>();
@@ -920,13 +923,15 @@ public class TableAccess implements TableAccessFace
 	@Override
 	public List<Transaction> getTransactionDetails(long accountNo) throws SQLException, UserDefinedException 
 	{
-		String query = "SELECT * FROM Transaction_Details WHERE PRIMARY_ACCOUNT = ? ORDER BY TRANSACTION_ID DESC LIMIT 18";
+		long milliSec = BankUtil.milliBeforeDays();
+		String query = "SELECT * FROM Transaction_Details WHERE PRIMARY_ACCOUNT = ? AND TRANSACTION_TIME > ? ORDER BY TRANSACTION_ID DESC";
 		List<Transaction> transactionList = new ArrayList<>();
 		try (Connection connect = getConnection()) 
 		{
 			try (PreparedStatement statement = connect.prepareStatement(query)) 
 			{
 				statement.setLong(1, accountNo);
+				statement.setLong(2, milliSec);
 				try (ResultSet result = statement.executeQuery()) 
 				{
 					while (result.next()) 

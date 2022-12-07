@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Transaction Request</title>
+<link rel="stylesheet" type="text/css"
+	href="../style/HomeStyle.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		var obj = {button: "showTransactionRequest", reqType: "Pending"};
+		var myJson = JSON.stringify(obj);
+		
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var map = JSON.parse(response);
+				console.log(map);
+				$(".tr").remove();
+				for(i in map)
+				{
+					var val = map[i];
+					var status = val.status;
+					
+					if(status == "Pending")
+					{
+						$("#transReq").append(
+							"<tr class='tr'>"
+							+"<td>"+val.requestNumber+"</td>"
+							+"<td>"+val.customerId+"</td>"
+							+"<td>"+val.accountNo+"</td>"
+							+"<td>"+val.requestFor+"</td>"
+							+"<td>"+val.requestTime+"</td>"
+							+"<td>"+val.verifiedTime+"</td>"
+							+"<td>"+val.amount+"</td>"
+							+"<td>"+val.status+"</td>"
+							+"<td><button title='Approve' style='width: 40%;' class='button green-button'"
+							+"type='submit' value='ApprovedTransaction' name='action'>"
+							+"<span style='font-size: 100%;'>&#10004;</span>"
+							+"</button>"
+							+"<button title='Reject' style='width: 40%;' class='button red-button'"
+							+"type='submit' value='ejectedTransaction' name='action'>"
+							+"<span style='font-size: 100%;'>&#10006;</span>"
+							+"</button></td>"
+							+"</tr>"
+						);
+					}
+				}
+			}
+		})
+	})
+
+</script>
+<body>
+	<header class="header">
+		<div class="sameGrid positionf">
+			<h2
+				style="text-align: left; margin-left: 5%; margin-top: 3%;">Transaction
+				Request</h2>
+
+
+				<select style="margin-left: 43%; width: 20%; margin-top: 1%;" class="inputStyle"
+					id="reqType" name="reqType">
+					<option value="Pending">Pending</option>
+					<option value="Approved">Approved</option>
+					<option value="Rejected">Rejected</option>
+				</select>
+				<button style="margin-left: 255%; margin-top: -4%;" class="button accept-button"
+					type="submit" name="action" value="showTransactionRequest" onclick="showTransactionRequest()">
+					Search</button>
+
+		</div>
+	</header>
+
+	<div style="overflow: auto; height: 78vh; margin-top: 3%;" class="tables">
+				<table id="transReq" style="width: 90%;">
+				<thead>
+					<tr style="background-color: #283655; color: white;">
+						<th>Request No</th>
+						<th>Customer ID</th>
+						<th>Account Number</th>
+						<th>Request Type</th>
+						<th>Request Time</th>
+						<th>Verified Time</th>
+						<th>Amount</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+
+						<!-- <tr>
+							<td style="background: none;">${ pending.key }</td>
+							<td>${ pending.value.getCustomerId() }</td>
+							<td>${ pending.value.getAccountNo() }</td>
+							<td>${ pending.value.getRequestFor() }</td>
+							<td><fmt:formatDate value="${reqDate}"
+									pattern="dd-MM-yyyy  HH:mm:ss" /></td>
+							<td style="text-align: center">-</td>
+							<td>${ pending.value.getAmount() }</td>
+							<td>${ pending.value.getStatus() }</td>
+							<td style="width: 13%"><form
+									action="<%=request.getContextPath()%>/servlet"
+									target="adminArea">
+									<input type="hidden" value="${ pending.key }" name="reqNo"
+										readonly>
+									<button title="Approve" style="width: 40%;" class="button green-button"
+										type="submit" value="ApprovedTransaction" name="action">
+										<span style='font-size: 100%;'>&#10004;</span>
+									</button>
+									<button title="Reject" style="width: 40%;" class="button red-button"
+										type="submit" value="RejectedTransaction" name="action">
+										<span style='font-size: 100%;'>&#10006;</span>
+									</button>
+								</form></td>
+						</tr> -->
+						
+						<!-- <tr>
+							<td>${ status.key }</td>
+							<td>${ status.value.getCustomerId() }</td>
+							<td>${ status.value.getAccountNo() }</td>
+							<td>${ status.value.getRequestFor() }</td>
+							<td><fmt:formatDate value="${reqDate1}"
+									pattern="dd-MM-yyyy  HH:mm:ss" /></td>
+							<td><fmt:formatDate value="${verDate1}"
+									pattern="dd-MM-yyyy  HH:mm:ss" /></td>
+							<td>${ status.value.getAmount() }</td>
+							<td>${ status.value.getStatus() }</td>
+							<td>-</td>
+						</tr> -->
+				</table>
+			</div>
+			<!-- <h3 style="text-align: center; color: red;">No Pending Request
+				Available</h3> -->
+
+</body>
+</html>

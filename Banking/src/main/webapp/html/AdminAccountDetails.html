@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin Account Details</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="adminJs.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		var obj = {button:"AdminaccountDetails", accountNo:$("#acNo").val()};
+		var myJson = JSON.stringify(obj);
+		
+		var myJson = JSON.stringify(obj);
+		$.ajax({
+			type :"POST",
+			url :"../servlet",
+			data :myJson,
+			success:function(response) 
+			{
+				var map = JSON.parse(response);
+				console.log(map);
+				
+				$("#redMessage").hide();
+				$(".views").show();
+				for(i in map)
+				{
+					var val = map[i];
+					
+					if(val.accountNo)
+					{
+						if(val.accountStatus == "ACTIVE")
+						{
+							$("#accountTable").append(
+								"<tr>"
+								+"<td>"+val.accountNo+"</td>"
+								+"<td>"+val.accountType+"</td>"
+								+"<td>"+val.accountBranch+"</td>"
+								+"<td>"+val.ifsc+"</td>"
+								+"<td>"+val.balance+"</td>"
+								+"<td>"+val.accountStatus+"</td>"
+								+"<td><button style='font-size: small;' onclick='accountDeactivate(" + val.accountNo +")' class='button red-button' type='submit' value='AccountAction' name='action'>DE-ACTIVATE</button></td>"
+								+"</tr>"
+							);
+						}
+						else
+						{
+							$("#accountTable").append(
+								"<tr>"
+								+"<td>"+val.accountNo+"</td>"
+								+"<td>"+val.accountType+"</td>"
+								+"<td>"+val.accountBranch+"</td>"
+								+"<td>"+val.ifsc+"</td>"
+								+"<td>"+val.balance+"</td>"
+								+"<td>"+val.accountStatus+"</td>"
+								+"<td><button style='font-size: small;' onclick='accountActivate(" + val.accountNo +")' class='button green-button' type='submit' value='AccountActivate' name='action'>ACTIVATE</button></td>"
+								+"</tr>"
+							);
+						}
+					}
+					else
+					{
+						$("#message").hide();
+						$(".views").hide();
+						$("#redMessage").show().html("No Account Available");
+					}
+				}
+				
+			}
+		});
+	})
+
+</script>
+</head>
+<body>
+
+	<div style="margin-top: 3%;" class="tables views">
+		<table id="accountTable">
+			<tr style="background-color: #283655; color: white;">
+				<th>Account No</th>
+				<th>Type</th>
+				<th>Branch</th>
+				<th>IFSC</th>
+				<th>Balance</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</table>
+	</div>
+
+	<h4 style="text-align: center; color: red; margin-top: 2%;" id="fail"></h4>
+
+</body>
+</html>

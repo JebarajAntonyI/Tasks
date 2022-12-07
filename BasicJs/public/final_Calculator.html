@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calc</title>
+
+<script type="text/javascript">
+
+	var first = null;
+	var operation = null;
+	var display = null;
+
+	function numbers(num)
+	{
+		let values = document.getElementById("operation").value;
+		if (num == "." && values == "")
+		{
+			display = document.getElementById("operation").value + "0.";
+			document.getElementById("operation").value = display;
+		}
+		else if(values.indexOf(".") != -1 && num == ".")
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value;
+		}
+		else
+		{
+			display = document.getElementById("operation").value + num;
+			document.getElementById("operation").value = display;
+		}
+	}
+	
+	function start()
+	{
+		undoButton();
+		document.getElementById("operation").value = null;
+		first = null;
+		operation = null;
+		display = null;
+	}
+	
+	function add(action)
+	{
+		let check = document.getElementById("operation").value + action;  //if starting entry is '+' without any number.....The first value is consider as '+'
+		if(operation == null)
+		{
+			if (check != "+")
+			{
+				const btn = document.getElementById("plus");
+				btn.setAttribute("style", "background-color: #67afc7");
+				
+				operation = "+";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			/* else
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			} */
+		}
+		else if(check == "+")
+		{
+			document.getElementById("operation").value = "+";
+		}
+		else
+		{
+			undoButton();
+			const btn = document.getElementById("plus");
+			btn.setAttribute("style", "background-color: #67afc7");
+			operation = "+";
+		}
+	}
+	
+	function subtract(action)
+	{
+		let check = document.getElementById("operation").value + action; //if starting entry is '-' without any number.....The first value is consider as '-'
+		if(operation == null)
+		{
+			if (check != "-" && check != "--")
+			{
+				const btn = document.getElementById("minus");
+				btn.setAttribute("style", "background-color: #67afc7");
+				
+				operation = "-";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+			else if(check == "-")
+			{
+				document.getElementById("operation").value = document.getElementById("operation").value + action;
+			}
+		}
+		else if(check == "-")
+		{
+			document.getElementById("operation").value = document.getElementById("operation").value + action;
+		}
+		else
+		{
+			undoButton();
+			const btn = document.getElementById("minus");
+			btn.setAttribute("style", "background-color: #67afc7");
+			operation = "-";
+		}
+	}
+	
+	function multiplay(action)
+	{
+		let check = document.getElementById("operation").value + action;
+		if(operation == null)
+		{
+			if (check != "*")
+			{
+				const btn = document.getElementById("multi");
+				btn.setAttribute("style", "background-color: #67afc7");
+				
+				operation = "*";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+		}
+		else
+		{
+			undoButton();
+			const btn = document.getElementById("multi");
+			btn.setAttribute("style", "background-color: #67afc7");
+			operation = "*";
+		}
+	}
+	
+	function division(action)
+	{
+		let check = document.getElementById("operation").value + action;
+		if(operation == null)
+		{
+			if (check != "/")
+			{
+				const btn = document.getElementById("divi");
+				btn.setAttribute("style", "background-color: #67afc7");
+				
+				operation = "/";
+				first = document.getElementById("operation").value;
+				document.getElementById("operation").value = null;
+			}
+		}
+		else
+		{
+			undoButton();
+			const btn = document.getElementById("divi");
+			btn.setAttribute("style", "background-color: #67afc7");
+			operation = "/";
+		}
+	}
+	
+	function equals()
+	{
+		switch(operation)
+		{
+			case "+":
+			{
+				undoButton();
+				
+				display = Number(first) + Number(document.getElementById("operation").value);
+				if(isNaN(display))
+				{
+					start();
+					break;
+				}
+				document.getElementById("operation").value = display;
+				first=display;
+				operation = null;
+				break;
+			}
+			
+			case "-":
+			{
+				undoButton();
+				
+				display = Number(first) - Number(document.getElementById("operation").value);
+				if(isNaN(display))
+				{
+					start();
+					break;
+				}
+				document.getElementById("operation").value = display;
+				first=display;
+				operation = null;
+				break;
+			}
+			
+			case "*":
+			{
+				undoButton();
+				
+				display = Number(first) * Number(document.getElementById("operation").value);
+				if(isNaN(display))
+				{
+					start();
+					break;
+				}
+				document.getElementById("operation").value = display;
+				first=display;
+				operation = null;
+				break;
+			}
+			
+			case "/":
+			{
+				undoButton();
+				
+				display = Number(first) / Number(document.getElementById("operation").value);
+				if(isNaN(display))
+				{
+					start();
+					break;
+				}
+				document.getElementById("operation").value = display;
+				first=display;
+				operation = null;
+				break;
+			}
+			
+			default:
+			{
+				start();
+				break;
+			}
+		}
+	}
+	
+	function delt()
+	{
+		display = display.substring(0, display.length-1);
+		console.log(display);
+		document.getElementById("operation").value = display;
+	}
+	
+	function undoButton()
+	{
+		const btn = document.getElementById("plus");
+		btn.setAttribute("style", "background-color: #b4b4c2");
+		const btn2 = document.getElementById("minus");
+		btn2.setAttribute("style", "background-color: #b4b4c2");
+		const btn3 = document.getElementById("multi");
+		btn3.setAttribute("style", "background-color: #b4b4c2");
+		const btn4 = document.getElementById("divi");
+		btn4.setAttribute("style", "background-color: #b4b4c2");
+	}
+
+</script>
+
+<style type="text/css">
+
+	*
+	{
+		margin: 0;
+		padding: 0;
+	}
+	
+	.btn
+	{
+		width: 100%;
+		height: 85px;
+		font-size: 25px;
+		margin: 2px;
+		cursor: pointer;
+		font-size: 35px;
+		border-radius: 15%;
+		
+		background-color: #b4b4c2;
+	}
+	
+	.two-span-btn
+	{
+		width: 402px;
+	}
+	
+	.operation
+	{
+		width: 806px;
+		height: 180px;
+		margin: 5;
+		font-size: 25;
+		padding: 5;
+		background-color: #3d3c4a;
+		color: white;
+		text-align: right;
+		font-size: 35px;
+		
+		border: 26px solid black;
+	}
+	
+	.main
+	{
+		margin-top: 4%;
+		width: 45.6%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.tables
+	{
+		width: 810px;
+		background-color: black;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-top: 20px;
+		
+		align-content: center;
+	}
+	
+	body
+	{
+		background-color: #6c7682;
+	}
+
+</style>
+
+</head>
+<body>
+
+<div class="main">
+	<div class="output">
+		<input class="operation" id="operation" readonly>
+	</div>
+	
+	<table class="tables">
+	
+		<tr>
+			<td colspan="2"><button class="btn two-span-btn" onclick="start()">Clear</button></td>
+			<td colspan="2"><button class="btn two-span-btn" onclick="delt()">Del</button></td>
+		</tr>
+	
+		<tr>
+			<td><button class="btn" value="7" onclick="numbers(7)">7</button></td>
+			<td><button class="btn" value="8" onclick="numbers(8)">8</button></td>
+			<td><button class="btn" value="9" onclick="numbers(9)">9</button></td>
+			<td><button id="divi" class="btn" value="/" onclick="division('/')">/</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="4" onclick="numbers(4)">4</button></td>
+			<td><button class="btn" value="5" onclick="numbers(5)">5</button></td>
+			<td><button class="btn" value="6" onclick="numbers(6)">6</button></td>
+			<td><button id="multi" class="btn" value="*" onclick="multiplay('*')">x</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="1" onclick="numbers(1)">1</button></td>
+			<td><button class="btn" value="2" onclick="numbers(2)">2</button></td>
+			<td><button class="btn" value="3" onclick="numbers(3)">3</button></td>
+			<td><button id="minus" class="btn" value="-" onclick="subtract('-')">-</button></td>
+		</tr>
+		
+		<tr>
+			<td><button class="btn" value="." onclick="numbers('.')">.</button></td>
+			<td><button class="btn" value="0" onclick="numbers(0)">0</button></td>
+			<td><button class="btn" value="=" onclick="equals()">=</button></td>
+			<td><button id="plus" class="btn" value="+" onclick="add('+')">+</button></td>
+		</tr>
+		
+	</table>
+	
+
+</div>
+
+</body>
+</html>

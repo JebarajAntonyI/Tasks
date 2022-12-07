@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>All Accounts</title>
+<link rel="stylesheet" type="text/css" href="../style/HomeStyle.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+	
+	var obj = {
+		button :"View All Account"
+	};
+	var myJson = JSON.stringify(obj);
+	$.ajax({
+		type :"POST",
+		url :"../servlet",
+		data :myJson,
+		success:function(response) 
+		{
+			var map = JSON.parse(response);
+			console.log(map);
+			for(i in map)
+			{
+				var val = map[i];
+				$("#accountTable").append(
+					"<tr>"
+					+"<td>"+val.customerId+"</td>"
+					+"<td>"+val.accountNo+"</td>"
+					+"<td>"+val.accountType+"</td>"
+					+"<td>"+val.accountBranch+"</td>"
+					+"<td>"+val.ifsc+"</td>"
+					+"<td>"+val.balance+"</td>"
+					+"<td>"+val.accountStatus+"</td>"
+					+"</tr>"
+				);
+			}
+		}
+	});
+});
+
+</script>
+</head>
+<body>
+
+	<div style="overflow: auto; height: 73vh; margin-top: 5%;"
+		class="tables">
+		<table id="accountTable">
+			<thead style="position: sticky; top: 1px;">
+				<tr style="background-color: #283655; color: white;">
+					<th>Customer Id</th>
+					<th>Account Number</th>
+					<th>Type</th>
+					<th>Branch</th>
+					<th>IFSC</th>
+					<th>Balance</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+		</table>
+	</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
